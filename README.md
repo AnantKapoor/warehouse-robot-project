@@ -1,4 +1,4 @@
-﻿#Warehouse Assignment - RP 2018
+﻿# Warehouse Assignment - RP 2018
 
 ## Job Roles
 * **Team Manager:** Anant Kapoor
@@ -26,14 +26,14 @@ https://canvas.bham.ac.uk/courses/27283/assignments/98523
 * Concluded that roles should be assigned to sub-teams to allow easier collaboration for each task
 
 ### Next Meeting
-29/02/2018
-####Agenda
+**29/02/2018**
+#### Agenda
 * Assign individuals to sub teams
 * Assign roles to sub-teams
 * Work towards completing intermediate submission
 
 ## Intermediate Submission
-### Due ** 12 March - 17:00 **
+### **Due 12 March - 17:00**
 #### Expected to submit the following:
 * A breakdown of the overall assignment into roles/subsystems.
 * A mapping from team members to roles/subsystems.
