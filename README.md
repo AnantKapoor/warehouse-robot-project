@@ -12,12 +12,12 @@
 
 ## Meeting Summaries
 ### 27/01/2018
-### Members present:
+#### Members present:
 * Anant Kapoor
 * Gintarė Statkutė
 * Will Tetlow
 
-### What was discussed:
+#### What was discussed:
 * Meet and greet
 * Overview of markscheme posted by Phil
 https://canvas.bham.ac.uk/courses/27283/pages/warehouse-assignment-mark-scheme
@@ -25,9 +25,9 @@ https://canvas.bham.ac.uk/courses/27283/pages/warehouse-assignment-mark-scheme
 https://canvas.bham.ac.uk/courses/27283/assignments/98523
 * Concluded that roles should be assigned to sub-teams to allow easier collaboration for each task
 
-### Next Meeting
+#### Next Meeting
 **29/02/2018**
-#### Agenda
+##### Agenda
 * Assign individuals to sub teams
 * Assign roles to sub-teams
 * Work towards completing intermediate submission
