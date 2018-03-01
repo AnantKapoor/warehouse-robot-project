@@ -21,7 +21,7 @@
 
 
 ## Meeting Summaries
-### 27/01/2018
+### **27/01/2018**
 #### Members present:
 * Anant Kapoor
 * Gintarė Statkutė
@@ -42,7 +42,7 @@ https://canvas.bham.ac.uk/courses/27283/assignments/98523
 * Assign roles to sub-teams
 * Work towards completing intermediate submission
 
-### 01/02/2018
+### **01/02/2018**
 #### Members present:
 * Anant Kapoor
 * Gintarė Statkutė
