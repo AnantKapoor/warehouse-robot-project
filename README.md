@@ -4,10 +4,20 @@
 * **Team Manager:** Anant Kapoor
 
 ### Team 1
+* Tarun
+* Han
+* Arun
+* Om
 
 ### Team 2
+* Gintarė
+* Martynas
+* Tom
 
 ### Team 3
+* Anant
+* Hitesh
+* Will
 
 
 ## Meeting Summaries
@@ -26,11 +36,47 @@ https://canvas.bham.ac.uk/courses/27283/assignments/98523
 * Concluded that roles should be assigned to sub-teams to allow easier collaboration for each task
 
 #### Next Meeting
-**29/02/2018**
+**01/02/2018**
 ##### Agenda
 * Assign individuals to sub teams
 * Assign roles to sub-teams
 * Work towards completing intermediate submission
+
+### 01/02/2018
+#### Members present:
+* Anant Kapoor
+* Gintarė Statkutė
+* Will Tetlow
+* Arun Venu
+* Martynas Greičius
+* Om Sai Krishna Sarnala
+* Tarun Sampat
+* Seonghee Han
+
+#### What was discussed:
+* Assigned roles to sub teams
+* Assigned individuals to sub teams
+
+##### Team 1
+* Grid Movement
+* Robot Interface
+* Robot Building
+* Route Planning
+
+##### Team 2
+* Input/Output
+* Algorithms
+* Job Selection
+* Route Planning (less emphasis than group 1)
+
+##### Team 3
+* Multi Robot Communication
+* Warehouse Interface
+
+#### Next Meeting
+**02/02/2018 - 12pm**
+##### Agenda
+* Meet with TA
 
 ## Intermediate Submission
 ### **Due 12 March - 17:00**
