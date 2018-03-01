@@ -1,7 +1,8 @@
 ﻿# Warehouse Assignment - RP 2018
 
 ## Job Roles
-* **Team Manager:** Anant Kapoor
+* **Co-Team Manager:** Anant Kapoor
+* **Co-Team Manager:** Will Tetlow
 
 ### Team 1
 * Tarun
@@ -33,6 +34,18 @@
 https://canvas.bham.ac.uk/courses/27283/pages/warehouse-assignment-mark-scheme
 * Discussion of difficulty of each individual task and role
 https://canvas.bham.ac.uk/courses/27283/assignments/98523
+
+ **Complexity of tasks** (descending)
+* Integration
+* Localisation
+* (Multi Robot) Route planning
+* Route Excecution
+* Job Assignment 
+* Job Selection
+* Robot Motion Control
+* Warehouse Interface
+* Robot Interface
+
 * Concluded that roles should be assigned to sub-teams to allow easier collaboration for each task
 
 #### Next Meeting
