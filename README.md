@@ -35,15 +35,15 @@ https://canvas.bham.ac.uk/courses/27283/pages/warehouse-assignment-mark-scheme
 * Discussion of difficulty of each individual task and role
 https://canvas.bham.ac.uk/courses/27283/assignments/98523
 
- **Complexity of tasks** (descending)
-* Integration
-* Localisation
+ **Difficulty Level based on marks awarded** (descending)
 * (Multi Robot) Route planning
+* Localisation
+* Integration
 * Route Excecution
 * Job Assignment 
+* Warehouse Interface
 * Job Selection
 * Robot Motion Control
-* Warehouse Interface
 * Robot Interface
 
 * Concluded that roles should be assigned to sub-teams to allow easier collaboration for each task
