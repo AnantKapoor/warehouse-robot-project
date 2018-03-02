@@ -49,13 +49,13 @@ https://canvas.bham.ac.uk/courses/27283/assignments/98523
 * Concluded that roles should be assigned to sub-teams to allow easier collaboration for each task
 
 #### Next Meeting
-**01/02/2018**
+**01/03/2018**
 ##### Agenda
 * Assign individuals to sub teams
 * Assign roles to sub-teams
 * Work towards completing intermediate submission
 
-### **01/02/2018**
+### **01/03/2018**
 #### Members present:
 * Anant Kapoor
 * Gintarė Statkutė
@@ -87,9 +87,22 @@ https://canvas.bham.ac.uk/courses/27283/assignments/98523
 * Warehouse Interface
 
 #### Next Meeting
-**02/02/2018 - 12pm**
+**02/03/2018 - 12pm**
 ##### Agenda
 * Meet with TA
+
+### **02/03/2018**
+#### Members present:
+* Anant
+* Gintaré
+* Om
+* Tatum
+* Arun
+* Martynas
+* 
+#### What was discussed
+* Meeting with TA
+
 
 ## Intermediate Submission
 ### **Due 12 March - 17:00**
