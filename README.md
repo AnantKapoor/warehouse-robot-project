@@ -99,7 +99,7 @@ https://canvas.bham.ac.uk/courses/27283/assignments/98523
 * Tatum
 * Arun
 * Martynas
-* 
+
 #### What was discussed
 * Meeting with TA
 
