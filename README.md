@@ -102,7 +102,16 @@ https://canvas.bham.ac.uk/courses/27283/assignments/98523
 
 #### What was discussed
 * Meeting with TA
+TA discussed:
+* To integrate basic solutions early on
+* To create a diagram to plan project before hardcoding
 
+#### Next Meeting
+**08/03/2018 - 12pm**
+##### Agenda
+* Meet with TA
+* Discuss progress of each team
+* Set objectives for each team
 
 ## Intermediate Submission
 ### **Due 12 March - 17:00**
