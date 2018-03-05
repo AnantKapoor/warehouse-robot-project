@@ -10,8 +10,10 @@ This will be a weekly report monitoring the team's progress
 #### Achieved:
 * Created algorithm to calculate individual rewards of each job
 * Created algorithm to calculate the distance to each object
+
 #### Objectives:
 * Create cancellation prediction algorithm
+
 ### Team 3
 
 ## Week 2 - 09/02/18
