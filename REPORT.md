@@ -5,6 +5,8 @@ This will be a weekly report monitoring the team's progress
 **3 weeks till deadline**
 ### Team 1
 #### Achieved:
+* Robot build completed (2 castor robots)
+
 #### Objectives:
 ### Team 2
 #### Achieved:
@@ -15,6 +17,9 @@ This will be a weekly report monitoring the team's progress
 * Create cancellation prediction algorithm
 
 ### Team 3
+#### Achieved:
+
+#### Objectives :
 
 ## Week 2 - 09/02/18
 **2 weeks till deadline**
