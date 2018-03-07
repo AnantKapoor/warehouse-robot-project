@@ -96,7 +96,7 @@ https://canvas.bham.ac.uk/courses/27283/assignments/98523
 * Anant
 * Gintaré
 * Om
-* Tatum
+* Tarun
 * Arun
 * Martynas
 
@@ -113,6 +113,29 @@ TA discussed:
 * Meet with TA
 * Discuss progress of each team
 * Set objectives for each team
+
+### **07/03/2018**
+#### Short notice meeting, not all members available 
+#### Members present:
+* Anant
+* Gintaré
+* Tarun
+* Arun
+* Will
+* Hitesh
+
+#### What was discussed
+* Created UML diagram for project
+* Individual marking for each sub-teams tasks
+
+#### Next Meeting
+**08/03/2018 - 12pm**
+##### Agenda
+* Meet with TA
+* Discuss progress of each team
+* Set objectives for each team
+
+
 
 ## Intermediate Submission
 ### **Due 12 March - 17:00**
