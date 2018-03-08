@@ -15,6 +15,7 @@ This will be a weekly report monitoring the team's progress
 #### Achieved:
 * Created algorithm to calculate individual rewards of each job
 * Created algorithm to calculate the distance to each object
+* Created a* search algorithm
 
 #### Objectives:
 * Create cancellation prediction algorithm
@@ -51,6 +52,10 @@ This will be a weekly report monitoring the team's progress
 
 #### Objectives :
 
+Initiate communications between PC and robot
+* Create warehouse interface
+* Add log4j to pc subsystems
+* Add Junit tests to pc subsystems
 * Prepare for VIVA demonstrations (Tasks shown in README.md)
 
 
