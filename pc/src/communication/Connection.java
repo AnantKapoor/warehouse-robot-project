@@ -1,4 +1,4 @@
-package bluetooth;
+package communication;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -35,10 +35,10 @@ public class Connection implements Runnable {
 
     @Override
     public void run() {
-
+    String message = "test";
         try {
             while (true) {
-                m_dos.writeInt(1);
+                m_dos.writeChars(message);
                 m_dos.flush();
 
                 int answer = m_dis.readInt();

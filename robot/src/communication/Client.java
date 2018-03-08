@@ -1,9 +1,8 @@
-package bluetooth;
+package communication;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.util.Random;
 
 import lejos.nxt.Button;
 import lejos.nxt.comm.BTConnection;
@@ -20,10 +19,6 @@ public class Client {
         BTConnection connection = Bluetooth.waitForConnection();
         System.out.println("OK!");
 
-        int rand = new Random().nextInt();
-
-        System.out.println("R: " + rand);
-
         DataInputStream inputStream = connection.openDataInputStream();
         DataOutputStream outputStream = connection.openDataOutputStream();
 
@@ -31,13 +26,17 @@ public class Client {
         while (run) {
 
             try {
-                int input = inputStream.readInt();
-                if (input != 0) {
-                    Button.waitForAnyPress();
-                    outputStream.writeInt(rand);
-                    outputStream.flush();
-                } else {
-                    run = false;
+                String input = inputStream.readLine();
+
+                switch (input) {
+                    case "test":
+                        Button.waitForAnyPress();
+                        outputStream.writeChars("test");
+                        outputStream.flush();
+                        break;
+                    case "stop":
+                        run = false;
+                        break;
                 }
             } catch (IOException e) {
                 System.out.println("Exception: " + e.getClass());
