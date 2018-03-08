@@ -135,6 +135,48 @@ TA discussed:
 * Discuss progress of each team
 * Set objectives for each team
 
+### **02/03/2018**
+#### Members present:
+* Anant
+* Gintaré
+* Om
+* Tarun
+* Arun
+* Martynas
+* Hitesh
+* Han
+
+#### What was discussed
+* Meeting with TA
+
+TA discussed:
+* Individual marking questions
+* Information about intermediate submission
+* **VIVA AT 14:30 12/03/18**
+* Assigned demonstration tasks for each team for VIVA
+
+#### Team 1
+* Example of robot interface
+* Demonstration of robot motion on grid
+* Demonstration of route excecution, following a scripted route
+#### Team 2
+* Demonstration of job being selected from list of jobs
+* Demonstration of jobs being assigned in order
+* Demonstration of A* search
+#### Team 3
+* Example of warehouse interface
+* Simple GUI that displays job list with ability to cancel jobs
+* Communication between pc and single robot
+
+### Integration
+* Route sent to robot after job being selected
+* Robot follows route recieved
+
+#### Next Meeting
+**12/03/2018 - 2:30pm**
+##### Agenda
+**VIVA**
+
 
 
 ## Intermediate Submission
@@ -147,3 +189,7 @@ TA discussed:
 * One or more Git repositories which can be monitored to observe development progress.
 * Ideally some demonstration of partial subsystem integration.
 * Any additional documentation necessary to support your team's progress (e.g. notes on who has worked well to deadlines).
+
+#### Additional Information
+* 20 minutes long
+* Split into demonstrations and individuals discussing their contributions to code

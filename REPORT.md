@@ -10,6 +10,7 @@ This will be a weekly report monitoring the team's progress
 #### Objectives:
 * Complete robot motion control
 * Complete robot interface
+
 ### Team 2
 #### Achieved:
 * Created algorithm to calculate individual rewards of each job
@@ -24,6 +25,10 @@ This will be a weekly report monitoring the team's progress
 #### Achieved:
 
 #### Objectives :
+* Initiate communications between PC and robot
+* Create warehouse interface
+* Add log4j to pc subsystems
+* Add Junit tests to pc subsystems
 
 ## Week 2 - 09/02/18
 **2 weeks till deadline**
@@ -31,16 +36,22 @@ This will be a weekly report monitoring the team's progress
 #### Achieved:
 
 #### Objectives:
+* Create Robot Interface
+* Prepare for VIVA demonstrations (Tasks shown in README.md)
 
 ### Team 2
 #### Achieved:
 
 #### Objectives:
+* Create robot interface
+* Prepare for VIVA demonstrations (Tasks shown in README.md)
 
 ### Team 3
 #### Achieved:
 
 #### Objectives :
+
+* Prepare for VIVA demonstrations (Tasks shown in README.md)
 
 
 ## Week 3 - 16/02/18
