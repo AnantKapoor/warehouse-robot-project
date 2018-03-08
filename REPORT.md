@@ -52,7 +52,7 @@ This will be a weekly report monitoring the team's progress
 
 #### Objectives :
 
-Initiate communications between PC and robot
+* Initiate communications between PC and robot
 * Create warehouse interface
 * Add log4j to pc subsystems
 * Add Junit tests to pc subsystems
