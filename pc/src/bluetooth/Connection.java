@@ -58,11 +58,11 @@ public class Connection implements Runnable {
 
             NXTInfo[] nxts = {
 
-                    new NXTInfo(NXTCommFactory.BLUETOOTH, "R.O.B.B.Y.",
-                            "0016531B59DA"),
+                    new NXTInfo(NXTCommFactory.BLUETOOTH, "OptimusPrime",
+                            "0016530A971B"),};
 
-                    new NXTInfo(NXTCommFactory.BLUETOOTH, "martin",
-                            "0016530A9ABC"), };
+//                    new NXTInfo(NXTCommFactory.BLUETOOTH, "martin",
+//                            "0016530A9ABC"), };
 
             ArrayList<Connection> connections = new ArrayList<>(
                     nxts.length);
