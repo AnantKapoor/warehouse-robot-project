@@ -135,7 +135,7 @@ TA discussed:
 * Discuss progress of each team
 * Set objectives for each team
 
-### **02/03/2018**
+### **08/03/2018**
 #### Members present:
 * Anant
 * Gintaré
