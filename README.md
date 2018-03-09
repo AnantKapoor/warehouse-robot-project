@@ -159,10 +159,12 @@ TA discussed:
 * Example of robot interface
 * Demonstration of robot motion on grid
 * Demonstration of route excecution, following a scripted route
+
 #### Team 2
 * Demonstration of job being selected from list of jobs
 * Demonstration of jobs being assigned in order
 * Demonstration of A* search
+
 #### Team 3
 * Example of warehouse interface
 * Simple GUI that displays job list with ability to cancel jobs
