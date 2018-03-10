@@ -1,4 +1,4 @@
-package PathFinding;
+package main.java.PathFinding;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package JobSelection;
+package main.java.JobSelection;
 
 import java.awt.List;
 import java.util.ArrayList;
@@ -33,15 +33,15 @@ public class Jobs {
         return text;
     }
 
-    public ArrayList<Order> calculateRewards (){
+    public ArrayList<Order> calculateRewards (ItemSpecifications itemSpecifications){
     	ArrayList<Order> allOrders=new ArrayList();
         Iterator it = availableJobs.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry)it.next();
-            int jobID = (int) pair.getKey();
+            int jobID = (Integer) pair.getKey();
             Task tasks = (Task) pair.getValue();
             Map<Character, Integer> taskMap = tasks.getTasks();
-            float calculation = tasks.calculateReward(taskMap,MapUtils.createRealWarehouse(),new GridPose());
+            float calculation = tasks.calculateReward(taskMap,MapUtils.createRealWarehouse(),new GridPose(), itemSpecifications);
             rewards.put(jobID, calculation);
            // System.out.println("reward of job " + jobID + "---->" + calculation);
             allOrders.add(new Order(jobID,calculation,tasks.getReward(),tasks.getDetails()));

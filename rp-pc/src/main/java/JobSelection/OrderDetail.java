@@ -1,4 +1,4 @@
-package JobSelection;
+package main.java.JobSelection;
 
 public class OrderDetail {
 	private char itemName;

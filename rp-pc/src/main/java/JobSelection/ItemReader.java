@@ -1,5 +1,4 @@
-package JobSelection;
-
+package main.java.JobSelection;
 import java.awt.Point;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -7,10 +6,14 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import org.apache.log4j.Logger;
+
 public class ItemReader {
     public static ItemSpecifications itemSpecifications;
     public static Jobs jobs;
-
+    
+    private static final Logger logger = Logger.getLogger(Main.class);
+    
     public static void readSpecs (String filePath){
 
         String cvsSplitBy = ",";
@@ -27,6 +30,7 @@ public class ItemReader {
         try {
             line = reader.readLine();
         } catch (IOException e1) {
+        	logger.error("Error reading item specifications (specs.csv)");
             e1.printStackTrace();
         }
 
@@ -40,6 +44,7 @@ public class ItemReader {
             try {
                 line = reader.readLine();
             } catch (IOException e) {
+            	logger.error("Error reading item specifications (specs.csv)");
                 e.printStackTrace();
             }
         }
@@ -47,17 +52,20 @@ public class ItemReader {
         try {
             reader.close();
         } catch (IOException e) {
+        	logger.error("Error reading item specifications (specs.csv)");
             e.printStackTrace();
         }
     }
+    
     public static ArrayList<Item> readLocations(String filePath) {
     	 String cvsSplitBy = ",";
-    	 ArrayList<Item> allItems=new ArrayList<>();
+    	 ArrayList<Item> allItems=new ArrayList<Item>();
          FileReader file = null;
 
          try {
              file = new FileReader(filePath);
          } catch (FileNotFoundException e) {
+        	 logger.error("Error reading item locations (ItemLocations.csv)");
              e.printStackTrace();
          }
          BufferedReader reader = new BufferedReader(file);
@@ -66,8 +74,10 @@ public class ItemReader {
          try {
              line = reader.readLine();
          } catch (IOException e1) {
+        	 logger.error("Error reading item locations (ItemLocations.csv)");
              e1.printStackTrace();
          }
+         
          line = line.substring(0);
          while (line != null) {
              String[] allParts = line.split(cvsSplitBy);
@@ -77,6 +87,7 @@ public class ItemReader {
              try {
                  line = reader.readLine();
              } catch (IOException e) {
+            	 logger.error("Error reading item locations (ItemLocations.csv)");
                  e.printStackTrace();
              }
          }
@@ -90,6 +101,7 @@ public class ItemReader {
         try {
             file = new FileReader(filePath);
         } catch (FileNotFoundException e) {
+        	logger.error("Error reading job information (jobs.csv)");
             e.printStackTrace();
         }
         BufferedReader reader = new BufferedReader(file);
@@ -98,6 +110,7 @@ public class ItemReader {
         try {
             line = reader.readLine();
         } catch (IOException e1) {
+        	logger.error("Error reading job information (jobs.csv)");
             e1.printStackTrace();
         }
 
@@ -125,6 +138,7 @@ public class ItemReader {
             try {
                 line = reader.readLine();
             } catch (IOException e) {
+            	logger.error("Error reading job information (jobs.csv)");
                 e.printStackTrace();
             }
         }
@@ -132,6 +146,7 @@ public class ItemReader {
         try {
             reader.close();
         } catch (IOException e) {
+        	logger.error("Error reading job information (jobs.csv)");
             e.printStackTrace();
         }
     }

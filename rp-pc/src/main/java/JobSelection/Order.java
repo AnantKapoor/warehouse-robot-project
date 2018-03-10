@@ -1,4 +1,4 @@
-package JobSelection;
+package main.java.JobSelection;
 
 import java.util.ArrayList;
 

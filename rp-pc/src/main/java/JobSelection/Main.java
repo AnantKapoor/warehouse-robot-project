@@ -1,13 +1,15 @@
-package JobSelection;
-
+package main.java.JobSelection;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
+import org.apache.log4j.Logger;
 
-import PathFinding.PathInfo;
 
 public class Main {
+	
+	private static final Logger logger = Logger.getLogger(Main.class);
+	
     public static ItemSpecifications itemSpecifications = new ItemSpecifications();
     public static Jobs jobs = new Jobs();
 
@@ -15,9 +17,20 @@ public class Main {
         ItemReader itemReader = new ItemReader(jobs, itemSpecifications);
         ItemReader.main();
         itemSpecifications = ItemReader.itemSpecifications;
+        
+        logger.info("All item infromation stored.");
+        
         jobs = ItemReader.jobs;
-        Iterator plsWork= itemSpecifications.getItemSpecification().values().iterator();
-        ArrayList<Order>allOrders=jobs.calculateRewards();
+        
+        logger.info("All job infromation stored.");
+        
+        Iterator itemIterator= itemSpecifications.getItemSpecification().values().iterator();
+        ArrayList<Order>allOrders = jobs.calculateRewards(itemSpecifications);
+        
+        if (allOrders == null){
+        	logger.error("Error calculating job rewards");
+        }
+        
         Collections.sort(allOrders, new Comparator<Order>() {
 		    @Override
 		    public int compare(Order o1, Order o2) {
@@ -27,10 +40,8 @@ public class Main {
         for(int i=0;i<allOrders.size();i++) {
         	System.out.println(allOrders.get(i).toString());
         }
-    }
-
-    public static ItemSpecifications getItemSpecifications() {
-        return itemSpecifications;
+        
+        logger.info("All jobs ranked by reward.");
     }
 
     public static Jobs getJobs() {
