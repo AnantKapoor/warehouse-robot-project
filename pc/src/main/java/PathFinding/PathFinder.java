@@ -19,22 +19,24 @@ public class PathFinder {
 
 	public PathInfo FindPath(GridPose startingPose, Point goalCoordinates) {
 		boolean foundPath = false;
+		allPaths = new ArrayList<PathInfo>();
 		this.goalCoordinates = goalCoordinates;
 		ArrayList<Integer> path = new ArrayList<Integer>();
 		PathInfo startingPoint = new PathInfo(startingPose, path,
 				goalCoordinates);
+		
 		allPaths.add(startingPoint);
 		move(2);
 		allPaths.add(startingPoint);
 		int counter = 0;
 		if(!map.isObstructed((int)goalCoordinates.getX(),(int) goalCoordinates.getY())) {
-			while (!foundPath && counter < 1000) {
+			while (!foundPath) {
 				
 				counter++;
 				Collections.sort(allPaths, new Comparator<PathInfo>() {
 					@Override
 					public int compare(PathInfo o1, PathInfo o2) {
-						return o1.getDistance().compareTo(o2.getDistance());
+						return ((Integer)(o1.path.size())).compareTo(o2.path.size());
 					}
 				});
 				if (allPaths.get(0).getDistance() == 0) {
@@ -46,8 +48,11 @@ public class PathFinder {
 					allPaths.remove(0);
 				}
 			}
+			//System.out.print(allPaths.get(0).path.toString());
 			return allPaths.get(0);
-		} else return new PathInfo(new GridPose(),new ArrayList<Integer>(4),new Point()) ;
+		} else {
+			return new PathInfo(new GridPose(),new ArrayList<Integer>(4),new Point()) ;
+		}
 	}
 
 	public void move(int direction) {

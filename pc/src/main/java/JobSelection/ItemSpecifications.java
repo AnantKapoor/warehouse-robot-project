@@ -7,17 +7,17 @@ import java.util.Iterator;
 import java.util.Map;
 
 public class ItemSpecifications {
-    private Map<Character, Specifications> itemSpecification = new HashMap<Character, Specifications>();
+    private Map<String, Specifications> itemSpecification = new HashMap<String, Specifications>();
 
-    public void addSpecifications (char item, double reward, double weight) {
+    public void addSpecifications (String item, double reward, double weight) {
         itemSpecification.put(item, new Specifications(reward, weight));
     }
 
-    public Map<Character, Specifications> getItemSpecification() {
+    public Map<String, Specifications> getItemSpecification() {
         return itemSpecification;
     }
 
-    public String toString (char item){
+    public String toString (String item){
         Specifications itemData = itemSpecification.get(item);
         String text = item + " " + itemData.getReward() + " " + itemData.getWeight();
         return text;

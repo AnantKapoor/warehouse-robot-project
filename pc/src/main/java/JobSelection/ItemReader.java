@@ -12,7 +12,7 @@ public class ItemReader {
     public static ItemSpecifications itemSpecifications;
     public static Jobs jobs;
     
-    private static final Logger logger = Logger.getLogger(Main.class);
+    private static final Logger logger = Logger.getLogger(Run.class);
     
     public static void readSpecs (String filePath){
 
@@ -34,12 +34,12 @@ public class ItemReader {
             e1.printStackTrace();
         }
 
-        line = line.substring(3);
-
+        line = line.substring(0);
         //stores text found in the cipher file in two arrays (one for letters, one for their frequencies) encryptedText
         while ((line != null)) {
             String[] threeParts = line.split(cvsSplitBy);
-            itemSpecifications.addSpecifications(threeParts[0].charAt(0), Double.parseDouble(threeParts[1]), Double.parseDouble(threeParts[2]));
+            
+            itemSpecifications.addSpecifications(threeParts[0], Double.parseDouble(threeParts[1]), Double.parseDouble(threeParts[2]));
 
             try {
                 line = reader.readLine();
@@ -81,8 +81,7 @@ public class ItemReader {
          line = line.substring(0);
          while (line != null) {
              String[] allParts = line.split(cvsSplitBy);
-             char itemName=allParts[2].charAt(0);
-
+             String itemName=allParts[2];
              itemSpecifications.getItemSpecification().get(itemName).addCoordinates(new Point(Integer.parseInt(allParts[0]) , Integer.parseInt(allParts[1])));
              try {
                  line = reader.readLine();
@@ -127,7 +126,7 @@ public class ItemReader {
 
             Task task = new Task();
             while (tasksLeft > 0){
-                task.addTask(allParts[item].charAt(0), Integer.parseInt(allParts[count]));
+                task.addTask(allParts[item], Integer.parseInt(allParts[count]));
                 item += 2;
                 count += 2;
                 --tasksLeft;
@@ -160,8 +159,8 @@ public class ItemReader {
         ItemReader.itemSpecifications = itemSpecifications;
     }
     public static void main (){
-        readSpecs ("resources/specs.csv");
+        readSpecs ("resources/items.csv");
         readJobs ("resources/jobs.csv");
-        readLocations("resources/itemLocations.csv");
+        readLocations("resources/locations.csv");
     }
 }

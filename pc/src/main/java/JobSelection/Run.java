@@ -6,14 +6,14 @@ import java.util.Iterator;
 import org.apache.log4j.Logger;
 
 
-public class Main {
+public class Run {
 	
-	private static final Logger logger = Logger.getLogger(Main.class);
-	
+	private static final Logger logger = Logger.getLogger(Run.class);
+	private static ArrayList<Order>allOrders;
     public static ItemSpecifications itemSpecifications = new ItemSpecifications();
     public static Jobs jobs = new Jobs();
 
-    public static void main (String args[]){
+    public static void main (){
         ItemReader itemReader = new ItemReader(jobs, itemSpecifications);
         ItemReader.main();
         itemSpecifications = ItemReader.itemSpecifications;
@@ -25,7 +25,7 @@ public class Main {
         logger.info("All job infromation stored.");
         
         Iterator itemIterator= itemSpecifications.getItemSpecification().values().iterator();
-        ArrayList<Order>allOrders = jobs.calculateRewards(itemSpecifications);
+        allOrders = jobs.calculateRewards(itemSpecifications);
         
         if (allOrders == null){
         	logger.error("Error calculating job rewards");
@@ -37,6 +37,7 @@ public class Main {
 		        return o2.getRate().compareTo(o1.getRate());
 		    }
 		});
+        
         for(int i=0;i<allOrders.size();i++) {
         	System.out.println(allOrders.get(i).toString());
         }
@@ -46,5 +47,10 @@ public class Main {
 
     public static Jobs getJobs() {
         return jobs;
+    }
+    
+    public static ArrayList<Order> getOrders(){
+    	return allOrders;
+    	
     }
 }

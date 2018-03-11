@@ -10,9 +10,13 @@ import lejos.pc.comm.NXTComm;
 import lejos.pc.comm.NXTCommException;
 import lejos.pc.comm.NXTCommFactory;
 import lejos.pc.comm.NXTInfo;
+import controller.*;
+import main.java.JobSelection.*;
+import main.java.PathFinding.*;
 
 public class Connection implements Runnable {
 
+	public static ArrayList<Order> allOrders;
     private DataInputStream m_dis;
     private DataOutputStream m_dos;
     private final NXTInfo m_nxt;
@@ -36,36 +40,54 @@ public class Connection implements Runnable {
 
     @Override
     public void run() {
-    Scanner scan = new Scanner(System.in);
-    //int message = 1;
-        try {
-        	if(isConnected()) {
-        		System.out.println("connected to");
-        	}
-            while (isConnected()) {
-            	
-            	
-            	int message = scan.nextInt();
-                m_dos.writeInt(message);
-                m_dos.flush();
-
-                int answer = m_dis.readInt();
-                System.out.println(m_nxt.name + " returned " + answer);
-            }
-            scan.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    	
+	    Scanner scan = new Scanner(System.in);
+	        try {
+	        	if(isConnected()) {
+	        		System.out.println("connected to");
+	        	}
+	            while (isConnected()) {
+	            	
+	            	for (Order ord : allOrders) {
+	            		int n = ord.getDetail().size();
+	            		for (int i = 0; i < n; i ++) {
+	            			ArrayList<Integer> steps = ord.getPath(i);
+	            			for(int step : steps) {
+	            				m_dos.writeInt(step);
+	            				m_dos.flush();
+	            			}
+	            			m_dos.writeInt(100); // telling the robot it needs to wait for a button press
+	        				m_dos.flush();
+	        				readReply();
+	            		}
+	            	}
+	            	
+	            	int message = scan.nextInt();
+	                m_dos.writeInt(message);
+	                m_dos.flush();
+	
+	                readReply();
+	            }
+	            scan.close();
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
 
     }
+
+	private void readReply() throws IOException {
+		int answer = m_dis.readInt();
+		System.out.println(m_nxt.name + " returned " + answer);
+	}
 
 
     /**
      * @param args
      */
-    public static void main(String[] args) {
+    public static void main(ArrayList<Order> orders) {
+    	allOrders = orders;
         try {
-
+        	
             NXTInfo[] nxts = {
 
                     new NXTInfo(NXTCommFactory.BLUETOOTH, "OptimusPrime", "00:16:53:0A:97:1B"),};
@@ -92,7 +114,7 @@ public class Connection implements Runnable {
             }
 
             for (Thread thread : threads) {
-                thread.start();
+                thread.run();
             }
 
             for (Thread thread : threads) {

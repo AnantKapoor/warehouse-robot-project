@@ -13,13 +13,13 @@ import rp.robotics.navigation.GridPose;
 import rp.util.Collections;
 
 public class Task {
-	private Map<Character, Integer> tasks = new HashMap<Character, Integer>();
+	private Map<String, Integer> tasks = new HashMap<String, Integer>();
 	private double reward;
 	private ArrayList<OrderDetail> details = new ArrayList();
 	private Point dropPoint= new Point();
 	private ArrayList<ArrayList<Integer>>paths=new ArrayList<ArrayList<Integer>>();
 
-	public Map<Character, Integer> getTasks() {
+	public Map<String, Integer> getTasks() {
 		return tasks;
 	}
 
@@ -27,7 +27,7 @@ public class Task {
 		return details;
 	}
 
-	public void addTask(char item, int count) {
+	public void addTask(String item, int count) {
 		tasks.put(item, count);
 	}
 
@@ -35,47 +35,51 @@ public class Task {
 		return reward;
 	}
 
-	public float calculateReward(Map<Character, Integer> tasks, GridMap map,
+	public float calculateReward(Map<String, Integer> tasks, GridMap map,
 			GridPose startingPose, ItemSpecifications itemSpecifications) {
 		float totalReward = 0.0f;
 
 		ItemSpecifications itemSpecifications2 = itemSpecifications;
-		Map<Character, Specifications> specs = itemSpecifications2
+		Map<String, Specifications> specs = itemSpecifications2
 				.getItemSpecification();
 		int totalDistance = 0;
 		PathFinder finder = new PathFinder(map);
-		PathInfo pathInfo = null;
+		PathInfo pathInfo = new PathInfo(startingPose);
 		Iterator it = tasks.entrySet().iterator();
 		double totalWeight=0;
 		GridPose currentPose = null;
 		while (it.hasNext()) {
 			Map.Entry pair = (Map.Entry) it.next();
-			char item = (Character) pair.getKey();
+			String item = (String) pair.getKey();
 			int count = (Integer) pair.getValue();
 			Iterator it2 = specs.entrySet().iterator();
-			currentPose = startingPose;
+			
 			
 			while (it2.hasNext()) {
 				Map.Entry pair2 = (Map.Entry) it2.next();
-				char item2 = (Character) pair2.getKey();
-				
-				if (item2 == item) {
+				String item2 = (String) pair2.getKey();
+				if (item2.equals(item)) {
 					Specifications itemData = (Specifications) pair2.getValue();
-					if(itemData.getWeight()<50) {
+					if(itemData.getWeight()<=50) {
+						currentPose = pathInfo.pose;
+						System.out.print(currentPose.getX()+" "+currentPose.getY()+" "+itemData.getCoordinates().getX()+" "+itemData.getCoordinates().getY()+" "+currentPose.getHeading().toString());
 						pathInfo = finder.FindPath(currentPose,
 								itemData.getCoordinates());
+						//System.out.println(currentPose.getX()+" "+currentPose.getY()+" "+itemData.getCoordinates().getX());
 						totalDistance += pathInfo.path.size();
 						currentPose = pathInfo.pose;
 						details.add(new OrderDetail(pathInfo.path));
+						
 						for(int i=0;i<count;i++) {
 							if(itemData.getWeight()+totalWeight<=50) {
+								System.out.println(" "+i);
 								double reward = itemData.getReward();
 								totalReward += (float) reward;
 								totalWeight+=itemData.getWeight();
 								details.add(new OrderDetail(item2));
 							} else {
 								pathInfo=finder.FindPath(currentPose, dropPoint);
-								totalReward += itemData.getReward();
+								//totalReward += itemData.getReward();
 								paths.add(pathInfo.path);
 								totalDistance+=pathInfo.path.size();
 								ArrayList<Integer> newPath = (ArrayList<Integer>) pathInfo.path.clone();
@@ -84,15 +88,18 @@ public class Task {
 								pathInfo=finder.FindPath(newPose, new Point((int)currentPose.getPosition().getX(),(int)currentPose.getPosition().getY()));
 								newPath.addAll(pathInfo.path);
 								totalWeight=itemData.getWeight();
+								//System.out.println(newPath.toString());
 								details.add(new OrderDetail(item2, newPath));
+								System.out.println("I stop working here");
 							}
 						}
+						count=0;
 					}else return -1;	
 					}
 				}		
 			it2 = specs.entrySet().iterator();
 		}
-		
+		System.out.println("next");
 		pathInfo=finder.FindPath(currentPose,dropPoint);
 		ArrayList<Integer>finalPath= (ArrayList<Integer>) pathInfo.path.clone();
 		finalPath.add(5);

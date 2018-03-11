@@ -15,6 +15,9 @@ public class PathInfo {
 		this.path=path;
 		this.goal=goal;
 	}
+	public PathInfo(GridPose pose) {
+		this.pose=pose;
+	}
 	public Integer getDistance() {
 		return (int) (Math.abs(pose.getX()-goal.getX())+Math.abs(pose.getY()-goal.getY()));
 	}

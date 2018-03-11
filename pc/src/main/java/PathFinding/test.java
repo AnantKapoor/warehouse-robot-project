@@ -12,10 +12,10 @@ public abstract class test {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		GridMap map= MapUtils.createRealWarehouse2016();
+		GridMap map= MapUtils.createRealWarehouse();
 		PathFinder find=new PathFinder(map);
 
-		PathInfo path=find.FindPath(new GridPose(new Point (0,0),Heading.PLUS_X ), new Point(5,5));
+		PathInfo path=find.FindPath(new GridPose(new Point (6,2),Heading.MINUS_Y ), new Point(6,5));
 		for(int i =0;i<path.path.size();i++) {
 			System.out.println(path.path.get(i));
 		}

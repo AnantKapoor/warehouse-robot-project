@@ -33,11 +33,18 @@ public class Client {
                         outputStream.writeInt(1);
                         outputStream.flush();
                         break;
+                    case -1:
+                        outputStream.writeInt(-1);
+                        outputStream.flush();
+                        break;
                     case 0:
                         outputStream.writeInt(0);
                         outputStream.flush();
-                        run = false;
                         break;
+                    default:
+                    	outputStream.writeInt(100);
+                    	outputStream.flush();
+                    	break;
                 }
             } catch (IOException e) {
                 System.out.println("Exception: " + e.getClass());
