@@ -22,9 +22,7 @@ public class Order {
 	public String toString() {
 		String items="";
 		for(int i=0;i<getDetail().size();i++) {
-			if(getDetail().get(i).getPath().size()!=0&&!getDetail().get(i).getName().equals("")) items+=getDetail().get(i).getPath().toString()+" take "+getDetail().get(i).getName()+";\n";
-			else if(getDetail().get(i).getPath().size()==0&&! getDetail().get(i).getName().equals("")) items+=" take "+getDetail().get(i).getName()+" \n";
-			else items+=" "+getDetail().get(i).getPath().toString()+" \n";
+			items+=" "+getDetail().get(i).getPath().toString()+"  "+getDetail().get(i).getName()+" \n" ;
 		}
 		return "job ID: "+jobID+";\nReward: "+reward+"\nRequired items :\n"+items;
 	}

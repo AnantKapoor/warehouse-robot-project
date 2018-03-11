@@ -44,7 +44,7 @@ public class Task {
 				.getItemSpecification();
 		int totalDistance = 0;
 		PathFinder finder = new PathFinder(map);
-		PathInfo pathInfo = null;
+		PathInfo pathInfo = new PathInfo(startingPose);
 		Iterator it = tasks.entrySet().iterator();
 		double totalWeight=0;
 		GridPose currentPose = null;
@@ -53,29 +53,33 @@ public class Task {
 			String item = (String) pair.getKey();
 			int count = (Integer) pair.getValue();
 			Iterator it2 = specs.entrySet().iterator();
-			currentPose = startingPose;
+			
 			
 			while (it2.hasNext()) {
 				Map.Entry pair2 = (Map.Entry) it2.next();
 				String item2 = (String) pair2.getKey();
-				
 				if (item2.equals(item)) {
 					Specifications itemData = (Specifications) pair2.getValue();
-					if(itemData.getWeight()<50) {
+					if(itemData.getWeight()<=50) {
+						currentPose = pathInfo.pose;
+						System.out.print(currentPose.getX()+" "+currentPose.getY()+" "+itemData.getCoordinates().getX()+" "+itemData.getCoordinates().getY()+" "+currentPose.getHeading().toString());
 						pathInfo = finder.FindPath(currentPose,
 								itemData.getCoordinates());
+						//System.out.println(currentPose.getX()+" "+currentPose.getY()+" "+itemData.getCoordinates().getX());
 						totalDistance += pathInfo.path.size();
 						currentPose = pathInfo.pose;
 						details.add(new OrderDetail(pathInfo.path));
+						
 						for(int i=0;i<count;i++) {
 							if(itemData.getWeight()+totalWeight<=50) {
+								System.out.println(" "+i);
 								double reward = itemData.getReward();
 								totalReward += (float) reward;
 								totalWeight+=itemData.getWeight();
 								details.add(new OrderDetail(item2));
 							} else {
 								pathInfo=finder.FindPath(currentPose, dropPoint);
-								totalReward += itemData.getReward();
+								//totalReward += itemData.getReward();
 								paths.add(pathInfo.path);
 								totalDistance+=pathInfo.path.size();
 								ArrayList<Integer> newPath = (ArrayList<Integer>) pathInfo.path.clone();
@@ -84,15 +88,18 @@ public class Task {
 								pathInfo=finder.FindPath(newPose, new Point((int)currentPose.getPosition().getX(),(int)currentPose.getPosition().getY()));
 								newPath.addAll(pathInfo.path);
 								totalWeight=itemData.getWeight();
+								//System.out.println(newPath.toString());
 								details.add(new OrderDetail(item2, newPath));
+								System.out.println("I stop working here");
 							}
 						}
+						count=0;
 					}else return -1;	
 					}
 				}		
 			it2 = specs.entrySet().iterator();
 		}
-		
+		System.out.println("next");
 		pathInfo=finder.FindPath(currentPose,dropPoint);
 		ArrayList<Integer>finalPath= (ArrayList<Integer>) pathInfo.path.clone();
 		finalPath.add(5);
