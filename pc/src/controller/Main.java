@@ -9,7 +9,7 @@ public class Main {
 	
 	public static void main(String[] args) {
 		Run.main();
-		ArrayList<Order> orders = Run.getOrders();
+		ArrayList<Order> orders =Run.getOrders();
 		Connection.main(orders);
 	}
 }

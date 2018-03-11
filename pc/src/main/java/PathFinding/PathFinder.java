@@ -29,9 +29,9 @@ public class PathFinder {
 		move(2);
 		allPaths.add(startingPoint);
 		int counter = 0;
-		if(!map.isObstructed((int)goalCoordinates.getX(),(int) goalCoordinates.getY())) {
-			while (!foundPath) {
-				
+		if(!map.isObstructed((int)goalCoordinates.getX(),(int) goalCoordinates.getY())&& map.isValidGridPosition((int)goalCoordinates.getX(),(int) goalCoordinates.getY())) {
+			while (!foundPath&&allPaths.size()<20000) {
+				System.out.println(allPaths.get(0).path.size());
 				counter++;
 				Collections.sort(allPaths, new Comparator<PathInfo>() {
 					@Override
@@ -51,7 +51,7 @@ public class PathFinder {
 			//System.out.print(allPaths.get(0).path.toString());
 			return allPaths.get(0);
 		} else {
-			return new PathInfo(new GridPose(),new ArrayList<Integer>(4),new Point()) ;
+			return new PathInfo(new GridPose(),allPaths.get(0).path,new Point()) ;
 		}
 	}
 
