@@ -4,6 +4,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import lejos.pc.comm.NXTComm;
 import lejos.pc.comm.NXTCommException;
@@ -35,10 +36,12 @@ public class Connection implements Runnable {
 
     @Override
     public void run() {
-    String message = "test";
+    //int message = 1;
         try {
             while (isConnected()) {
-                m_dos.writeChars(message);
+            	Scanner scan = new Scanner(System.in);
+            	int message = scan.nextInt();
+                m_dos.writeInt(message);
                 m_dos.flush();
 
                 int answer = m_dis.readInt();

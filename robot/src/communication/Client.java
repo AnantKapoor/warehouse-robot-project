@@ -26,15 +26,14 @@ public class Client {
         while (run) {
 
             try {
-                String input = inputStream.readLine();
+                int input = inputStream.readInt();
 
                 switch (input) {
-                    case "test":
-                        Button.waitForAnyPress();
+                    case 1:
                         outputStream.writeChars("test: received");
                         outputStream.flush();
                         break;
-                    case "stop":
+                    case 0:
                         outputStream.writeChars("stop: received");
                         outputStream.flush();
                         run = false;
