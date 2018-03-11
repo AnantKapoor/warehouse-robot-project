@@ -39,7 +39,6 @@ public class Task {
 			GridPose startingPose, ItemSpecifications itemSpecifications) {
 		float totalReward = 0.0f;
 
-		ItemSpecifications itemSpecifications1 = itemSpecifications;
 		ItemSpecifications itemSpecifications2 = itemSpecifications;
 		Map<Character, Specifications> specs = itemSpecifications2
 				.getItemSpecification();
@@ -48,12 +47,13 @@ public class Task {
 		PathInfo pathInfo = null;
 		Iterator it = tasks.entrySet().iterator();
 		double totalWeight=0;
+		GridPose currentPose = null;
 		while (it.hasNext()) {
 			Map.Entry pair = (Map.Entry) it.next();
 			char item = (Character) pair.getKey();
 			int count = (Integer) pair.getValue();
 			Iterator it2 = specs.entrySet().iterator();
-			GridPose currentPose = startingPose;
+			currentPose = startingPose;
 			
 			while (it2.hasNext()) {
 				Map.Entry pair2 = (Map.Entry) it2.next();
@@ -87,11 +87,16 @@ public class Task {
 								details.add(new OrderDetail(item2, newPath));
 							}
 						}
-					}else return totalDistance=Integer.MAX_VALUE;	
+					}else return -1;	
 					}
 				}		
 			it2 = specs.entrySet().iterator();
 		}
+		
+		pathInfo=finder.FindPath(currentPose,dropPoint);
+		ArrayList<Integer>finalPath= (ArrayList<Integer>) pathInfo.path.clone();
+		finalPath.add(5);
+		details.add(new OrderDetail(finalPath));
 		it = tasks.entrySet().iterator();
 		this.reward = totalReward;
 		return totalReward / totalDistance;
