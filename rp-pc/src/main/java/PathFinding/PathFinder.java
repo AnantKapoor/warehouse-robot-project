@@ -1,6 +1,7 @@
 package main.java.PathFinding;
 
 import java.awt.Point;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -26,25 +27,27 @@ public class PathFinder {
 		move(2);
 		allPaths.add(startingPoint);
 		int counter = 0;
-		while (!foundPath && counter < 1000) {
-			
-			counter++;
-			Collections.sort(allPaths, new Comparator<PathInfo>() {
-				@Override
-				public int compare(PathInfo o1, PathInfo o2) {
-					return o1.getDistance().compareTo(o2.getDistance());
+		if(!map.isObstructed((int)goalCoordinates.getX(),(int) goalCoordinates.getY())) {
+			while (!foundPath && counter < 1000) {
+				
+				counter++;
+				Collections.sort(allPaths, new Comparator<PathInfo>() {
+					@Override
+					public int compare(PathInfo o1, PathInfo o2) {
+						return o1.getDistance().compareTo(o2.getDistance());
+					}
+				});
+				if (allPaths.get(0).getDistance() == 0) {
+					foundPath = true;
+				} else {
+					this.move(1);
+					this.move(-1);
+					this.move(0);
+					allPaths.remove(0);
 				}
-			});
-			if (allPaths.get(0).getDistance() == 0) {
-				foundPath = true;
-			} else {
-				this.move(1);
-				this.move(-1);
-				this.move(0);
-				allPaths.remove(0);
 			}
-		}
-		return allPaths.get(0);
+			return allPaths.get(0);
+		} else return new PathInfo(new GridPose(),new ArrayList<Integer>(4),new Point()) ;
 	}
 
 	public void move(int direction) {
