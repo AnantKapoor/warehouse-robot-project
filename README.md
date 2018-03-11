@@ -179,6 +179,24 @@ TA discussed:
 ##### Agenda
 **VIVA**
 
+### **11/03/2018**
+#### Members present:
+* Anant
+* Gintaré
+* Tarun
+* Om
+* Martynas
+* Hitesh
+
+#### What was discussed
+* Integration of pc-subsystems
+* Integration of robot-subsystems
+
+#### Next Meeting
+**12/03/2018 - 2:30pm**
+##### Agenda
+**VIVA**
+
 
 
 ## Intermediate Submission
