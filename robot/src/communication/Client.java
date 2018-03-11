@@ -7,6 +7,7 @@ import java.io.IOException;
 import lejos.nxt.Button;
 import lejos.nxt.comm.BTConnection;
 import lejos.nxt.comm.Bluetooth;
+import java.util.ArrayList;
 
 public class Client {
 
@@ -22,35 +23,23 @@ public class Client {
         DataInputStream inputStream = connection.openDataInputStream();
         DataOutputStream outputStream = connection.openDataOutputStream();
         System.out.println("Connected");
+		Robot robot = new Robot();
+		ArrayList<Integer> path = new ArrayList<>();
         boolean run = true;
         while (run) {
 
             try {
                 int input = inputStream.readInt();
-                System.out.println("Received " + input + " from pc");
-                switch (input) {
-                    case 1:
-                        outputStream.writeInt(1);
-                        outputStream.flush();
-                        break;
-                    case -1:
-                        outputStream.writeInt(-1);
-                        outputStream.flush();
-                        break;
-                    case 0:
-                        outputStream.writeInt(0);
-                        outputStream.flush();
-                        break;
-                    default:
-                    	outputStream.writeInt(100);
-                    	outputStream.flush();
-                    	break;
-                }
+                path.add(input);
+				if (input == 5) {
+					break;
+				}
             } catch (IOException e) {
                 System.out.println("Exception: " + e.getClass());
                 run = false;
             }
         }
+		robot.executeRoute(path);
     }
 
 }
