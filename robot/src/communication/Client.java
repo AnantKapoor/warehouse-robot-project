@@ -31,10 +31,12 @@ public class Client {
                 switch (input) {
                     case "test":
                         Button.waitForAnyPress();
-                        outputStream.writeChars("test");
+                        outputStream.writeChars("test: received");
                         outputStream.flush();
                         break;
                     case "stop":
+                        outputStream.writeChars("stop: received");
+                        outputStream.flush();
                         run = false;
                         break;
                 }

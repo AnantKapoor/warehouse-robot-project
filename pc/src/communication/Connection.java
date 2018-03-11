@@ -20,7 +20,7 @@ public class Connection implements Runnable {
         m_nxt = _nxt;
     }
 
-    public boolean connect(NXTComm _comm) throws NXTCommException {
+    private boolean connect(NXTComm _comm) throws NXTCommException {
         if (_comm.open(m_nxt)) {
 
             m_dis = new DataInputStream(_comm.getInputStream());
@@ -29,7 +29,7 @@ public class Connection implements Runnable {
         return isConnected();
     }
 
-    public boolean isConnected() {
+    private boolean isConnected() {
         return m_dos != null;
     }
 
@@ -37,7 +37,7 @@ public class Connection implements Runnable {
     public void run() {
     String message = "test";
         try {
-            while (true) {
+            while (isConnected()) {
                 m_dos.writeChars(message);
                 m_dos.flush();
 
@@ -50,6 +50,7 @@ public class Connection implements Runnable {
 
     }
 
+
     /**
      * @param args
      */
@@ -59,7 +60,7 @@ public class Connection implements Runnable {
             NXTInfo[] nxts = {
 
                     new NXTInfo(NXTCommFactory.BLUETOOTH, "OptimusPrime",
-                            "0016530A971B"),};
+                            "00:16:53:0A:97:1B"),};
 
 //                    new NXTInfo(NXTCommFactory.BLUETOOTH, "martin",
 //                            "0016530A9ABC"), };
