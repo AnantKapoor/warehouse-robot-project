@@ -12,7 +12,7 @@ public class ItemReader {
     public static ItemSpecifications itemSpecifications;
     public static Jobs jobs;
     
-    private static final Logger logger = Logger.getLogger(Main.class);
+    private static final Logger logger = Logger.getLogger(Run.class);
     
     public static void readSpecs (String filePath){
 

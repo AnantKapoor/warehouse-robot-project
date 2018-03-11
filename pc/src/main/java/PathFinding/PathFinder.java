@@ -34,7 +34,7 @@ public class PathFinder {
 				Collections.sort(allPaths, new Comparator<PathInfo>() {
 					@Override
 					public int compare(PathInfo o1, PathInfo o2) {
-						return o1.getDistance().compareTo(o2.getDistance());
+						return ((Integer)(o1.path.size())).compareTo(o2.path.size());
 					}
 				});
 				if (allPaths.get(0).getDistance() == 0) {
