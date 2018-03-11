@@ -18,3 +18,10 @@ out/
 # Maven
 log/
 target/
+
+# LeJos
+*.nxd
+*.nxj
+
+# Class files
+*.class
