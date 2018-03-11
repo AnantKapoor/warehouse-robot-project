@@ -13,13 +13,13 @@ import rp.robotics.navigation.GridPose;
 import rp.util.Collections;
 
 public class Task {
-	private Map<Character, Integer> tasks = new HashMap<Character, Integer>();
+	private Map<String, Integer> tasks = new HashMap<String, Integer>();
 	private double reward;
 	private ArrayList<OrderDetail> details = new ArrayList();
 	private Point dropPoint= new Point();
 	private ArrayList<ArrayList<Integer>>paths=new ArrayList<ArrayList<Integer>>();
 
-	public Map<Character, Integer> getTasks() {
+	public Map<String, Integer> getTasks() {
 		return tasks;
 	}
 
@@ -27,7 +27,7 @@ public class Task {
 		return details;
 	}
 
-	public void addTask(char item, int count) {
+	public void addTask(String item, int count) {
 		tasks.put(item, count);
 	}
 
@@ -35,12 +35,12 @@ public class Task {
 		return reward;
 	}
 
-	public float calculateReward(Map<Character, Integer> tasks, GridMap map,
+	public float calculateReward(Map<String, Integer> tasks, GridMap map,
 			GridPose startingPose, ItemSpecifications itemSpecifications) {
 		float totalReward = 0.0f;
 
 		ItemSpecifications itemSpecifications2 = itemSpecifications;
-		Map<Character, Specifications> specs = itemSpecifications2
+		Map<String, Specifications> specs = itemSpecifications2
 				.getItemSpecification();
 		int totalDistance = 0;
 		PathFinder finder = new PathFinder(map);
@@ -50,16 +50,16 @@ public class Task {
 		GridPose currentPose = null;
 		while (it.hasNext()) {
 			Map.Entry pair = (Map.Entry) it.next();
-			char item = (Character) pair.getKey();
+			String item = (String) pair.getKey();
 			int count = (Integer) pair.getValue();
 			Iterator it2 = specs.entrySet().iterator();
 			currentPose = startingPose;
 			
 			while (it2.hasNext()) {
 				Map.Entry pair2 = (Map.Entry) it2.next();
-				char item2 = (Character) pair2.getKey();
+				String item2 = (String) pair2.getKey();
 				
-				if (item2 == item) {
+				if (item2.equals(item)) {
 					Specifications itemData = (Specifications) pair2.getValue();
 					if(itemData.getWeight()<50) {
 						pathInfo = finder.FindPath(currentPose,

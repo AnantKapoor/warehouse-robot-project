@@ -37,6 +37,7 @@ public class Main {
 		        return o2.getRate().compareTo(o1.getRate());
 		    }
 		});
+        
         for(int i=0;i<allOrders.size();i++) {
         	System.out.println(allOrders.get(i).toString());
         }

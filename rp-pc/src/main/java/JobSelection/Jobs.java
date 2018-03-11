@@ -20,7 +20,7 @@ public class Jobs {
 
     public String toString (int id){
         Task itemData = availableJobs.get(id);
-        Map<Character, Integer> tasks = itemData.getTasks();
+        Map<String, Integer> tasks = itemData.getTasks();
         String text = id + "";
 
         Iterator it = tasks.entrySet().iterator();
@@ -40,7 +40,7 @@ public class Jobs {
             Map.Entry pair = (Map.Entry)it.next();
             int jobID = (Integer) pair.getKey();
             Task tasks = (Task) pair.getValue();
-            Map<Character, Integer> taskMap = tasks.getTasks();
+            Map<String, Integer> taskMap = tasks.getTasks();
             float calculation = tasks.calculateReward(taskMap,MapUtils.createRealWarehouse(),new GridPose(), itemSpecifications);
             rewards.put(jobID, calculation);
            // System.out.println("reward of job " + jobID + "---->" + calculation);
