@@ -22,3 +22,6 @@ target/
 # LeJos
 *.nxd
 *.nxj
+
+# Class files
+*.java

@@ -36,10 +36,15 @@ public class Connection implements Runnable {
 
     @Override
     public void run() {
+    Scanner scan = new Scanner(System.in);
     //int message = 1;
         try {
+        	if(isConnected()) {
+        		System.out.println("connected to");
+        	}
             while (isConnected()) {
-            	Scanner scan = new Scanner(System.in);
+            	
+            	
             	int message = scan.nextInt();
                 m_dos.writeInt(message);
                 m_dos.flush();
@@ -47,6 +52,7 @@ public class Connection implements Runnable {
                 int answer = m_dis.readInt();
                 System.out.println(m_nxt.name + " returned " + answer);
             }
+            scan.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -62,11 +68,9 @@ public class Connection implements Runnable {
 
             NXTInfo[] nxts = {
 
-                    new NXTInfo(NXTCommFactory.BLUETOOTH, "OptimusPrime",
-                            "00:16:53:0A:97:1B"),};
+                    new NXTInfo(NXTCommFactory.BLUETOOTH, "OptimusPrime", "00:16:53:0A:97:1B"),};
 
-//                    new NXTInfo(NXTCommFactory.BLUETOOTH, "martin",
-//                            "0016530A9ABC"), };
+                   	//new NXTInfo(NXTCommFactory.BLUETOOTH, "Megatron", "0016530A9ABC"), };
 
             ArrayList<Connection> connections = new ArrayList<>(
                     nxts.length);

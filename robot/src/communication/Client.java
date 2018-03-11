@@ -21,20 +21,20 @@ public class Client {
 
         DataInputStream inputStream = connection.openDataInputStream();
         DataOutputStream outputStream = connection.openDataOutputStream();
-
+        System.out.println("Connected");
         boolean run = true;
         while (run) {
 
             try {
                 int input = inputStream.readInt();
-
+                System.out.println("Received " + input + " from pc");
                 switch (input) {
                     case 1:
-                        outputStream.writeChars("test: received");
+                        outputStream.writeInt(1);
                         outputStream.flush();
                         break;
                     case 0:
-                        outputStream.writeChars("stop: received");
+                        outputStream.writeInt(0);
                         outputStream.flush();
                         run = false;
                         break;
