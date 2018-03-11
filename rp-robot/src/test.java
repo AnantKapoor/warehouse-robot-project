@@ -10,7 +10,7 @@ public class test {
 		final String LEFT = "left";
 		final String RIGHT = "right";
 		final String FORWARD = "forward";
-		String[] directions = { FORWARD, LEFT, LEFT, FORWARD, FORWARD, RIGHT, FORWARD };
+		int[] directions = { 0, 1, 1, 0, 0, -1, 0, 2, 0, 0, 1, 1, 0, 0, -1, 0, 2, 0};
 		Robot testing = new Robot();
 		LightSensor left = testing.LEFT;
 		LightSensor right = testing.RIGHT;
@@ -30,21 +30,12 @@ public class test {
 			if (lVal <= lMin + 3 && rVal <= rMin + 3) {
 				testing.stop();
 				testing.travel(testing.LENGTH / 10);
-				switch (directions[index++]) {
-				case LEFT:
-					testing.rotate(90, false);
-					break;
-				case RIGHT:
-					testing.rotate(-90, false);
-					break;
-				case FORWARD:
-					testing.forward();
-					break;
-				}
+				testing.rotate(directions[index++] * 90, false);
 			} else {
 				testing.forward();
 			}
-			Delay.msDelay(50);
+			Delay.msDelay(20);
 		}
+
 	}
 }
