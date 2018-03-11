@@ -3,43 +3,49 @@ package communication;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
-import lejos.nxt.Button;
 import lejos.nxt.comm.BTConnection;
 import lejos.nxt.comm.Bluetooth;
-import java.util.ArrayList;
 
 public class Client {
 
-    /**
-     * @param args
-     */
-    public static void main(String[] args) {
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
 
-        System.out.println("Waiting for Bluetooth connection...");
-        BTConnection connection = Bluetooth.waitForConnection();
-        System.out.println("OK!");
+		System.out.println("Waiting for Bluetooth connection...");
+		BTConnection connection = Bluetooth.waitForConnection();
+		System.out.println("OK!");
 
-        DataInputStream inputStream = connection.openDataInputStream();
-        DataOutputStream outputStream = connection.openDataOutputStream();
-        System.out.println("Connected");
+		DataInputStream inputStream = connection.openDataInputStream();
+		DataOutputStream outputStream = connection.openDataOutputStream();
+		System.out.println("Connected");
 		Robot robot = new Robot();
 		ArrayList<Integer> path = new ArrayList<>();
-        boolean run = true;
-        while (run) {
+		while (true) {
 
-            try {
-                int input = inputStream.readInt();
-                path.add(input);
+			try {
+				int input = inputStream.readInt();
+				path.add(input);
+				System.out.println("added " + input);
 				if (input == 5) {
 					break;
 				}
-            } catch (IOException e) {
-                System.out.println("Exception: " + e.getClass());
-                run = false;
-            }
-        }
+			} catch (IOException e) {
+				System.out.println("Exception: " + e.getClass());
+				break;
+			}
+		}
+		System.out.println("executing path : " + path);
 		robot.executeRoute(path);
-    }
+		try {
+			outputStream.writeInt(5);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 }
