@@ -55,6 +55,8 @@ public class ItemReader {
         	logger.error("Error reading item specifications (specs.csv)");
             e.printStackTrace();
         }
+        
+        logger.debug("All item specifications have been read from the file (specs.csv)");
     }
     
     public static ArrayList<Item> readLocations(String filePath) {
@@ -65,7 +67,7 @@ public class ItemReader {
          try {
              file = new FileReader(filePath);
          } catch (FileNotFoundException e) {
-        	 logger.error("Error reading item locations (ItemLocations.csv)");
+        	 logger.error("Error reading item locations (locations.csv)");
              e.printStackTrace();
          }
          BufferedReader reader = new BufferedReader(file);
@@ -74,7 +76,7 @@ public class ItemReader {
          try {
              line = reader.readLine();
          } catch (IOException e1) {
-        	 logger.error("Error reading item locations (ItemLocations.csv)");
+        	 logger.error("Error reading item locations (locations.csv)");
              e1.printStackTrace();
          }
          
@@ -86,10 +88,13 @@ public class ItemReader {
              try {
                  line = reader.readLine();
              } catch (IOException e) {
-            	 logger.error("Error reading item locations (ItemLocations.csv)");
+            	 logger.error("Error reading item locations (locations.csv)");
                  e.printStackTrace();
              }
          }
+         
+         logger.debug("All item locations have been read from the file (locations.csv)");
+         
          return allItems;
     }
     public static void readJobs (String filePath){
@@ -148,6 +153,8 @@ public class ItemReader {
         	logger.error("Error reading job information (jobs.csv)");
             e.printStackTrace();
         }
+        
+        logger.debug("All item specifications have been read from the file (jobs.csv)");
     }
 
     public static ItemSpecifications getItemSpecifications() {
@@ -162,5 +169,6 @@ public class ItemReader {
         readSpecs ("resources/items.csv");
         readJobs ("resources/jobs.csv");
         readLocations("resources/locations.csv");
+        logger.debug("ItemReader has parsed all of the information found in .csv files");
     }
 }

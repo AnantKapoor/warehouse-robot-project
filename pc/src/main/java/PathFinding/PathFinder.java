@@ -1,23 +1,26 @@
 package main.java.PathFinding;
 
-import java.awt.Point;
+
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+
+import lejos.geom.Point;
+import lejos.robotics.mapping.LineMap;
 import rp.robotics.mapping.GridMap;
 import rp.robotics.navigation.GridPose;
 
 public class PathFinder {
-	public GridMap map;
-	public Point goalCoordinates;
+	public LineMap map;
+	public GridPose goalCoordinates;
 	public ArrayList<PathInfo> allPaths = new ArrayList<PathInfo>();
 
-	public PathFinder(GridMap map) {
-		this.map = map;
+	public PathFinder(LineMap map2) {
+		this.map = map2;
 	}
 
-	public PathInfo FindPath(GridPose startingPose, Point goalCoordinates) {
+	public PathInfo FindPath(GridPose startingPose, GridPose goalCoordinates) {
 		boolean foundPath = false;
 		allPaths = new ArrayList<PathInfo>();
 		this.goalCoordinates = goalCoordinates;
@@ -28,17 +31,8 @@ public class PathFinder {
 		allPaths.add(startingPoint);
 		move(2);
 		allPaths.add(startingPoint);
-		int counter = 0;
-		if(!map.isObstructed((int)goalCoordinates.getX(),(int) goalCoordinates.getY())) {
+		if(map.inside(new Point((int)goalCoordinates.getX(),(int) goalCoordinates.getY()))&&  map.inside(new Point((int)goalCoordinates.getX(),(int) goalCoordinates.getY()))) {
 			while (!foundPath) {
-				
-				counter++;
-				Collections.sort(allPaths, new Comparator<PathInfo>() {
-					@Override
-					public int compare(PathInfo o1, PathInfo o2) {
-						return ((Integer)(o1.path.size())).compareTo(o2.path.size());
-					}
-				});
 				if (allPaths.get(0).getDistance() == 0) {
 					foundPath = true;
 				} else {
@@ -47,11 +41,16 @@ public class PathFinder {
 					this.move(0);
 					allPaths.remove(0);
 				}
+				Collections.sort(allPaths, new Comparator<PathInfo>() {
+						@Override
+						public int compare(PathInfo o1, PathInfo o2) {
+							return ((Integer)(o1.path.size()+o1.getDistance())).compareTo(o2.path.size()+o2.getDistance());
+						}
+					});
 			}
-			//System.out.print(allPaths.get(0).path.toString());
 			return allPaths.get(0);
 		} else {
-			return new PathInfo(new GridPose(),new ArrayList<Integer>(4),new Point()) ;
+			return new PathInfo(new GridPose(),allPaths.get(0).path,new GridPose()) ;
 		}
 	}
 
@@ -59,14 +58,15 @@ public class PathFinder {
 		GridPose nextLocation = allPaths.get(0).pose.clone();
 		nextLocation.rotateUpdate(direction * 90);
 		nextLocation.moveUpdate();
+		@SuppressWarnings("unchecked")
 		ArrayList<Integer> nextPath = (ArrayList<Integer>) allPaths.get(0).path
 				.clone();
 		nextPath.add(direction);
-		if (map.isValidTransition(allPaths.get(0).pose.getPosition(),
-				nextLocation.getPosition())) {
+		if (map.inside(new Point((int)allPaths.get(0).pose.getPosition().getX(),(int)allPaths.get(0).pose.getPosition().getY()))&&
+				map.inside(new Point((int)nextLocation.getPosition().getX(),(int)nextLocation.getPosition().getY()))) {
 			this.allPaths.add(1, new PathInfo(nextLocation, nextPath,
 					this.goalCoordinates));
-		}
+		} 
 
 		// return new PathInfo(nextLocation, nextPath, this.goalCoordinates);
 	}

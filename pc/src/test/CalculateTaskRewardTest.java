@@ -21,41 +21,41 @@ public class CalculateTaskRewardTest {
 		@Test
 		public void CalculateReward1(){
 			Task task = new Task();
-			task.addTask('a', 12);
-			task.addTask('b', 2);
-			task.addTask('c', 7);
+			task.addTask("ab", 2);
+			task.addTask("bc", 2);
+			task.addTask("cd", 7);
 			
-			Map<Character, Integer> taskMap = task.getTasks();
+			Map<String, Integer> taskMap = task.getTasks();
 			
 			ItemSpecifications specs = new ItemSpecifications ();
-			specs.addSpecifications('a', 100, 2344);
-			specs.addSpecifications('b', 20, 145);
-			specs.addSpecifications('c', 45, 98);
+			specs.addSpecifications("ab", 10, 12);
+			specs.addSpecifications("bc", 20, 25);
+			specs.addSpecifications("cd", 100, 8);
 			
-			specs.getItemSpecification().get('a').addCoordinates(new Point(2,5));
-			specs.getItemSpecification().get('b').addCoordinates(new Point(5,0));
-			specs.getItemSpecification().get('c').addCoordinates(new Point(1,5));
+			specs.getItemSpecification().get("ab").addCoordinates(new Point(2,5));
+			specs.getItemSpecification().get("bc").addCoordinates(new Point(5,0));
+			specs.getItemSpecification().get("cd").addCoordinates(new Point(1,5));
 			
-			float result = task.calculateReward(taskMap, MapUtils.createRealWarehouse(),new GridPose(), specs);
-			assertEquals(result, 74.04762f, 0.0f);
+			float result = task.calculateReward(taskMap, MapUtils.createRealWarehouse(), specs);
+			assertEquals(result, 320f, 0.0f);
 		}
 		
 		@Test
 		public void CalculateReward2(){
 			Task task = new Task();
-			task.addTask('a', 1);
-			task.addTask('b', 2);
+			task.addTask("aa", 1);
+			task.addTask("bb", 2);
 			
-			Map<Character, Integer> taskMap = task.getTasks();
+			Map<String, Integer> taskMap = task.getTasks();
 			
 			ItemSpecifications specs = new ItemSpecifications ();
-			specs.addSpecifications('a', 50000, 10);
-			specs.addSpecifications('b', 2000, 145);
+			specs.addSpecifications("aa", 50, 1);
+			specs.addSpecifications("bb", 300, 3);
 			
-			specs.getItemSpecification().get('a').addCoordinates(new Point(4,5));
-			specs.getItemSpecification().get('b').addCoordinates(new Point(5,9));
+			specs.getItemSpecification().get("aa").addCoordinates(new Point(3,4));
+			specs.getItemSpecification().get("bb").addCoordinates(new Point(1,2));
 			
-			float result = task.calculateReward(taskMap, MapUtils.createRealWarehouse(),new GridPose(), specs);
-			assertEquals(result, 88.091354f, 0.0f);
+			float result = task.calculateReward(taskMap, MapUtils.createRealWarehouse(), specs);
+			assertEquals(result, 216.66667f, 0.0f);
 		}
 }
