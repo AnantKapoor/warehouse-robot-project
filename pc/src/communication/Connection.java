@@ -124,9 +124,9 @@ public class Connection implements Runnable {
         	
             NXTInfo[] nxts = {
 
-                    //new NXTInfo(NXTCommFactory.BLUETOOTH, "OptimusPrime", "00:16:53:0A:97:1B"),};
+                    new NXTInfo(NXTCommFactory.BLUETOOTH, "OptimusPrime", "00:16:53:0A:97:1B"),};
 
-                   	new NXTInfo(NXTCommFactory.BLUETOOTH, "Megatron", "00:16:53:08:9B:0D"), };
+                   	//new NXTInfo(NXTCommFactory.BLUETOOTH, "Megatron", "00:16:53:08:9B:0D"), };
 
             ArrayList<Connection> connections = new ArrayList<Connection>(
                     nxts.length);
