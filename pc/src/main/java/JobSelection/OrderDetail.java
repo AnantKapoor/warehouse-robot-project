@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class OrderDetail {
 	private String itemName;
-	private ArrayList<Integer>path=new ArrayList<>();
+	private ArrayList<Integer>path=new ArrayList<Integer>();
 	public OrderDetail(String itemName) {
 		this.itemName=itemName;
 		//path.add(4);

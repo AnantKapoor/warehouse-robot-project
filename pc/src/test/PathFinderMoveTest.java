@@ -21,31 +21,16 @@ public class PathFinderMoveTest {
 		PathFinder finder = new PathFinder(map);
 		ArrayList<Integer> path = new ArrayList<Integer>();
 		
-		PathInfo startingPoint = new PathInfo(new GridPose(new Point (9,0),Heading.MINUS_Y ), path, new Point(2,4));
+		PathInfo startingPoint = new PathInfo(new GridPose(new Point (9,0),Heading.MINUS_Y ), path, new GridPose(new Point (1,2),Heading.MINUS_X ));
 		finder.allPaths.add(startingPoint);
-		finder.move(1);
-
-//		ArrayList<PathInfo> allPathsExpected = new ArrayList<PathInfo>();
-//		allPathsExpected.add(startingPoint);
-//		
-//		GridPose nextLocation = allPathsExpected.get(0).pose.clone();
-//		nextLocation.rotateUpdate(1 * 90);
-//		nextLocation.moveUpdate();
-//		ArrayList<Integer> nextPath = (ArrayList<Integer>) allPathsExpected.get(0).path.clone();
-//		nextPath.add(1);
-//		if (map.isValidTransition(allPathsExpected.get(0).pose.getPosition(),
-//				nextLocation.getPosition())) {
-//			allPathsExpected.add(1, new PathInfo(nextLocation, nextPath, new Point(2,4)));
-//		}
+		finder.move(2);
 		
 		ArrayList<Integer> expectedPath = new ArrayList<Integer>();
-		expectedPath.add(1);
 		
-		assertEquals(finder.allPaths.get(1).path, expectedPath);
-		assertEquals(finder.allPaths.get(1).goal, null);
-		assertEquals(finder.allPaths.get(1).pose.getX(), 10);
-		assertEquals(finder.allPaths.get(1).pose.getY(), 0);
-		assertEquals(finder.allPaths.get(1).pose.getHeading(), Heading.PLUS_X );
+		assertEquals(finder.allPaths.get(0).path, expectedPath);
+		assertEquals(finder.allPaths.get(0).pose.getX(), 9);
+		assertEquals(finder.allPaths.get(0).pose.getY(), 0);
+		assertEquals(finder.allPaths.get(0).pose.getHeading(), Heading.MINUS_Y );
 	}
 	
 	@Test 
@@ -54,18 +39,18 @@ public class PathFinderMoveTest {
 		PathFinder finder = new PathFinder(map);
 		ArrayList<Integer> path = new ArrayList<Integer>();
 		
-		PathInfo startingPoint = new PathInfo(new GridPose(new Point (0,0),Heading.PLUS_X ), path, new Point(2,4));
+		PathInfo startingPoint = new PathInfo(new GridPose(new Point (1,0),Heading.PLUS_X ), path, new GridPose(new Point (1,9),Heading.MINUS_X ));
 		finder.allPaths.add(startingPoint);
-		finder.move(1);
+		finder.move(2);
 		
 		ArrayList<Integer> expectedPath = new ArrayList<Integer>();
-		expectedPath.add(1);
+		expectedPath.add(2);
 		
 		assertEquals(finder.allPaths.get(1).path, expectedPath);
 		assertEquals(finder.allPaths.get(1).goal, null);
 		assertEquals(finder.allPaths.get(1).pose.getX(), 0);
-		assertEquals(finder.allPaths.get(1).pose.getY(), 1);
-		assertEquals(finder.allPaths.get(1).pose.getHeading(), Heading.PLUS_Y );
+		assertEquals(finder.allPaths.get(1).pose.getY(), 0);
+		assertEquals(finder.allPaths.get(1).pose.getHeading(), Heading.MINUS_X );
 	}
 	
 	@Test 
@@ -74,17 +59,16 @@ public class PathFinderMoveTest {
 		PathFinder finder = new PathFinder(map);
 		ArrayList<Integer> path = new ArrayList<Integer>();
 		
-		PathInfo startingPoint = new PathInfo(new GridPose(new Point (2,4),Heading.PLUS_X ), path, new Point(2,4));
+		PathInfo startingPoint = new PathInfo(new GridPose(new Point (9,0),Heading.MINUS_Y ), path, new GridPose(new Point (1,2),Heading.MINUS_X ));
 		finder.allPaths.add(startingPoint);
 		finder.move(-1);
 		
 		ArrayList<Integer> expectedPath = new ArrayList<Integer>();
-		expectedPath.add(-1);
+		//expectedPath.add(-1);
 		
-		assertEquals(finder.allPaths.get(1).path, expectedPath);
-		assertEquals(finder.allPaths.get(1).goal, null);
-		assertEquals(finder.allPaths.get(1).pose.getX(), 2);
-		assertEquals(finder.allPaths.get(1).pose.getY(), 3);
-		assertEquals(finder.allPaths.get(1).pose.getHeading(), Heading.MINUS_Y );
+		assertEquals(finder.allPaths.get(0).path, expectedPath);
+		assertEquals(finder.allPaths.get(0).pose.getX(), 9);
+		assertEquals(finder.allPaths.get(0).pose.getY(), 0);
+		assertEquals(finder.allPaths.get(0).pose.getHeading(), Heading.MINUS_Y );
 	}
 }

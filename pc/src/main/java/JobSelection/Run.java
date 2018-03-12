@@ -1,4 +1,5 @@
 package main.java.JobSelection;
+
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,6 +17,7 @@ import rp.robotics.navigation.GridPose;
 import rp.robotics.navigation.Heading;
 
 
+
 public class Run {
 	
 	private static final Logger logger = Logger.getLogger(Run.class);
@@ -29,11 +31,11 @@ public class Run {
         ItemReader.main();
         itemSpecifications = ItemReader.itemSpecifications;
         
-        logger.info("All item infromation stored.");
+        logger.debug("All item infromation stored.");
         
         jobs = ItemReader.jobs;
         
-        logger.info("All job infromation stored.");
+        logger.debug("All job infromation stored.");
         
         Iterator itemIterator= itemSpecifications.getItemSpecification().values().iterator();
         allOrders = jobs.calculateRewards(itemSpecifications);
@@ -48,6 +50,9 @@ public class Run {
 		        return o2.getRate().compareTo(o1.getRate());
 		    }
 		});
+        
+        logger.debug("All orders sorted by reward.");
+        
         GridPose startingPosition=new GridPose(new Point (1,0),Heading.PLUS_X);
         PathFinder finder = new PathFinder(MapUtils.createTrainingMap());
         ItemSpecifications itemSpecifications2 = itemSpecifications;
@@ -83,7 +88,7 @@ public class Run {
         	System.out.println(allOrders.get(i).toString());
         }*/
         
-        logger.info("All jobs ranked by reward.");
+        logger.debug("All job selection tasks completed");
     }
 
 
