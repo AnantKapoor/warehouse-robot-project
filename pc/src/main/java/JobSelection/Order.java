@@ -16,8 +16,14 @@ public class Order {
 	public Float getRate() {
 		return rewardRate;
 	}
+	public int getID(){
+		return jobID;
+	}
 	public ArrayList<Integer> getPath(int i){
 		return(getDetail().get(i).getPath());
+	}
+	public double getReward(){
+		return reward;
 	}
 	public String toString() {
 		String items="";

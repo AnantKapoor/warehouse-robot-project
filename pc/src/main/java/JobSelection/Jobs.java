@@ -1,14 +1,18 @@
 package main.java.JobSelection;
 
 import java.awt.List;
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+
+
 import rp.robotics.mapping.GridMap;
 import rp.robotics.mapping.MapUtils;
 import rp.robotics.navigation.GridPose;
+import rp.robotics.navigation.Heading;
 
 public class Jobs {
     private Map<Integer, Task> availableJobs  = new HashMap<Integer, Task>();
@@ -41,7 +45,7 @@ public class Jobs {
             int jobID = (Integer) pair.getKey();
             Task tasks = (Task) pair.getValue();
             Map<String, Integer> taskMap = tasks.getTasks();
-            float calculation = tasks.calculateReward(taskMap,MapUtils.createRealWarehouse(),new GridPose(), itemSpecifications);
+            float calculation = tasks.calculateReward(taskMap,MapUtils.createTrainingMap(), itemSpecifications);
             rewards.put(jobID, calculation);
            // System.out.println("reward of job " + jobID + "---->" + calculation);
             allOrders.add(new Order(jobID,calculation,tasks.getReward(),tasks.getDetails()));
