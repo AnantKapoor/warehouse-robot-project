@@ -197,8 +197,6 @@ TA discussed:
 ##### Agenda
 **VIVA**
 
-
-
 ## Intermediate Submission
 ### **Due 12 March - 17:00**
 #### Expected to submit the following:
@@ -213,3 +211,47 @@ TA discussed:
 #### Additional Information
 * 20 minutes long
 * Split into demonstrations and individuals discussing their contributions to code
+
+### **14/03/2018**
+#### Members present:
+* Anant
+* Gintaré
+* Arun
+
+#### What was discussed
+* Discussion of remaining tasks for final submission
+* Assigned remaining tasks to sub teams 
+
+### Team 1
+#### Objectives:
+* **Robot Interface**
+* Unreliable human:
+* *Wrong number*
+* *timeouts*
+* Additional capabilites 
+
+### Team 2
+#### Objectives:
+* **Job Selection**
+* Cancellation prediction
+* Take current location of robot into account
+* Sharing jobs across robots rather than one job per robot
+* **Multi Robot route planning**
+* Multiple robots, avoiding collisions
+* **Route Excecution**
+* Recieving position updates for checking against plan and updating world model
+
+### Team 3
+#### Objectives :
+* **Bluetooth Communication**
+* Implement for multiple robots
+* **Warehouse Interface**
+* Robot plans and position updates
+* **Localisation**
+* Probalistic localisation using distance sensor
+
+#### Next Meeting
+**15/03/2018 - 11:00 Room 225**
+##### Agenda
+* Meet with TA
+
