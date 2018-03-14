@@ -229,6 +229,8 @@ TA discussed:
 * *Wrong number*
 * *timeouts*
 * Additional capabilites 
+* **Route Excecution**
+* Recieving position updates for checking against plan and updating world model
 
 ### Team 2
 #### Objectives:
@@ -238,8 +240,7 @@ TA discussed:
 * Sharing jobs across robots rather than one job per robot
 * **Multi Robot route planning**
 * Multiple robots, avoiding collisions
-* **Route Excecution**
-* Recieving position updates for checking against plan and updating world model
+
 
 ### Team 3
 #### Objectives :

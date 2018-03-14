@@ -72,6 +72,8 @@ This will be a weekly report monitoring the team's progress
 * *Wrong number*
 * *timeouts*
 * Additional capabilites 
+* **Route Excecution**
+* Recieving position updates for checking against plan and updating world model
 
 
 ### Team 2
@@ -82,8 +84,7 @@ This will be a weekly report monitoring the team's progress
 * Sharing jobs across robots rather than one job per robot
 * **Multi Robot route planning**
 * Multiple robots, avoiding collisions
-* **Route Excecution**
-* Recieving position updates for checking against plan and updating world model
+
 
 
 ### Team 3
