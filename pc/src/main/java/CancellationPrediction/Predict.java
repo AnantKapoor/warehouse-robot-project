@@ -34,45 +34,29 @@ public class Predict {
 	
 	public static void main() throws Exception {
 
-		/*
-		 * First we load the test data from our ARFF file
-		 */
+		//loading data from .arff file
 		ArffLoader testLoader = new ArffLoader();
 		testLoader.setSource(new File("resources/predictionData.arff"));
 		testLoader.setRetrieval(Loader.BATCH);
 		Instances testDataSet = testLoader.getDataSet();
 
-		/*
-		 * Now we tell the data set which attribute we want to classify, in our
-		 * case, we want to classify the first column: survived
-		 */
+		//tells the data set which attribute we want to classify (first column - cancellation)
+
 		Attribute testAttribute = testDataSet.attribute(0);
 		testDataSet.setClass(testAttribute);
 		testDataSet.deleteStringAttributes();
 
-		/*
-		 * Now we read in the serialized model from disk
-		 */
+		//reads in the serialised model from disk
+		
 		Classifier classifier = (Classifier) SerializationHelper
 				.read("resources/jobsTraining.model");
 
-		/*
-		 * This part may be a little confusing. We load up the test data again
-		 * so we have a prediction data set to populate. As we iterate over the
-		 * first data set we also iterate over the second data set. After an
-		 * instance is classified, we set the value of the prediction data set
-		 * to be the value of the classification
-		 */
 		ArffLoader test1Loader = new ArffLoader();
 		test1Loader.setSource(new File("resources/predictionData.arff"));
 		Instances test1DataSet = test1Loader.getDataSet();
 		Attribute test1Attribute = test1DataSet.attribute(0);
 		test1DataSet.setClass(test1Attribute);
 
-		/*
-		 * Now we iterate over the test data and classify each entry and set the
-		 * value of the 'survived' column to the result of the classification
-		 */
 		Enumeration testInstances = testDataSet.enumerateInstances();
 		Enumeration test1Instances = test1DataSet.enumerateInstances();
 		while (testInstances.hasMoreElements()) {
@@ -82,10 +66,6 @@ public class Predict {
 			instance1.setClassValue(classification);
 		}
 
-		/*
-		 * Now we want to write out our predictions. The resulting file is in a
-		 * format .csv
-		 */
 		CSVSaver predictedCsvSaver = new CSVSaver();
 		predictedCsvSaver.setFile(new File("resources/predict.csv"));
 		predictedCsvSaver.setInstances(test1DataSet);

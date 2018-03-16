@@ -24,7 +24,6 @@ public class MakePredictions {
 		try {
 			Train.main();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -33,17 +32,9 @@ public class MakePredictions {
 		try {
 			Predict.main();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		logger.debug("Prediction file created (.csv)");
-		
-//		try {
-//			Verify.main();
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
 	}
 }
