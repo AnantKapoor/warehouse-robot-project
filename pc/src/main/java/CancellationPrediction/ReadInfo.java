@@ -91,6 +91,7 @@ public class ReadInfo {
             int count = 2;
             double totalReward = 0;
             double totalWeight = 0;
+            int numberOfItems = 0;
 
             while (tasksLeft > 0){
             	//task.addTask(allParts[item], Integer.parseInt(allParts[count]));
@@ -98,12 +99,13 @@ public class ReadInfo {
             	int amount = Integer.parseInt(allParts[count]);
             	totalReward += (s.getReward() * ((double) amount));
             	totalWeight += (s.getWeight() * ((double) amount));
+            	numberOfItems += amount;
             	item += 2;
                 count += 2;
                 --tasksLeft;
             }
 
-            Job j = new Job (jobID, totalReward, totalWeight, cancellations.get(jobID), ((item-1)/2)+1);
+            Job j = new Job (jobID, totalReward, totalWeight, cancellations.get(jobID), numberOfItems);
             trainingJobs.add(j);
             
             try {
@@ -149,6 +151,7 @@ public class ReadInfo {
             int count = 2;
             double totalReward = 0;
             double totalWeight = 0;
+            int numberOfItems = 0;
 
             while (tasksLeft > 0){
             	//task.addTask(allParts[item], Integer.parseInt(allParts[count]));
@@ -156,12 +159,13 @@ public class ReadInfo {
             	int amount = Integer.parseInt(allParts[count]);
             	totalReward += (s.getReward() * ((double) amount));
             	totalWeight += (s.getWeight() * ((double) amount));
+            	numberOfItems += amount;
             	item += 2;
                 count += 2;
                 --tasksLeft;
             }
 
-            Job j = new Job (jobID, totalReward, totalWeight, ((item-1)/2)+1);
+            Job j = new Job (jobID, totalReward, totalWeight, numberOfItems);
             allJobs.add(j);
             
             try {

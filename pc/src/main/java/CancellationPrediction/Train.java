@@ -28,47 +28,36 @@ import weka.core.converters.Loader;
 public class Train {
 
 	private static final Logger logger = Logger.getLogger(Run.class);
-	
+
 	public static void main() throws Exception {
-		/*
-		 * First we load the training data from our ARFF file
-		 */
+
+		// loading data from .arff file
 		ArffLoader trainLoader = new ArffLoader();
 		trainLoader.setSource(new File("resources/trainingData.arff"));
 		trainLoader.setRetrieval(Loader.BATCH);
 		Instances trainDataSet = trainLoader.getDataSet();
 
-		/*
-		 * Now we tell the data set which attribute we want to classify, in our
-		 * case, we want to classify the first column: survived
-		 */
+		// tells the data set which attribute we want to classify (first column
+		// - cancellation)
 		Attribute trainAttribute = trainDataSet.attribute(0);
 		trainDataSet.setClass(trainAttribute);
 
-		/*
-		 * The RandomForest implementation cannot handle columns of type string,
-		 * so we remove them for now.
-		 */
 		trainDataSet.deleteStringAttributes();
 
-		/*
-		 * Create a new Classifier of type RandomForest and configure it.
-		 */
-		 RandomForest classifier = new RandomForest();
-		 classifier.setNumTrees(100);
-		 classifier.setDebug(true);
-		/*
-		 * Now we train the classifier
-		 */
+		// creates a new classifier
+		RandomForest classifier = new RandomForest();
+		classifier.setNumTrees(100);
+		classifier.setDebug(true);
+
+		// trains classifier
 		classifier.buildClassifier(trainDataSet);
 
-		/*
-		 * We are done training the classifier, so now we serialize it to disk
-		 */
+		
 		logger.debug("Started saving training model");
-		
+
+		//serialises classifier to .model file
 		SerializationHelper.write("resources/jobsTraining.model", classifier);
-		
+
 		logger.debug("Saved trained model to jobsTraining.model");
 	}
 }
