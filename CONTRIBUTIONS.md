@@ -12,8 +12,7 @@ robot build difficulty divided by 4 as task shared between team 1
 
 #### Han
 * Robot Build **(0-40)/4**
-* Junction detecting algorithm **0-40**
-* Line following algorithm **0-40**
+* Robot motion control **0-40**
  
 #### Arun
 * Robot Build **(0-40)/4**
