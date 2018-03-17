@@ -6,7 +6,6 @@
 * Integration
 * Aided route excecution
 
-
 #### Han
 * Robot Build
 * Junction detecting algorithm
@@ -35,8 +34,12 @@
 * **N/A**
 
 ### Team 3
-#### Anant
-* Team Leader
+#### Anant - **Team Leader**
+* Scheduled and led meetings
+* Created meeting notes
+* Created weekly reports of progress and iteratively set targets based on this
+* Maintained constant communication with TA
+* Enforced good VCS practices (GitLab Flow)
 
 #### Will
 * Warehouse Interface
