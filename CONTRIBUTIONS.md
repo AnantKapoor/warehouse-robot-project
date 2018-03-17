@@ -3,7 +3,7 @@
 ### Team 1
 #### Tarun
 * Robot Build
-* Integration of robot subsystems
+* Integration
 * Aided route excecution
 
 
@@ -22,12 +22,14 @@
 
 ### Team 2
 #### Gintarė
+* Job parsing
 * Job selection
-* Job Assignment
 * Cancellation Prediction
 
 #### Martynas
 * Single robot A* route planning
+* Job Assignment
+* Integration
 
 #### Tom
 * **N/A**
@@ -40,4 +42,4 @@
 * Warehouse Interface
 
 #### Hitesh
-*Bluetooth Communication
+* Bluetooth Communication
