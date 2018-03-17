@@ -27,12 +27,11 @@ public class WarehouseInterface extends JFrame implements ActionListener {
     private DefaultListModel<String> listModel;
 
     public static void main(String[] args) {
-        jobReader();
+        jobReader("C:/Users/Will/warehouse-assignment/pc/resources/jobs.csv"); // need to adjust this for repo
         SwingUtilities.invokeLater(WarehouseInterface::new);
     }
 
-    private static void jobReader() {
-        String filePath = "C:/Users/Will/warehouse-assignment/pc/resources/jobs.csv";
+    private static void jobReader(String filePath) {
         BufferedReader reader = null;
         String line;
         String csvSplitBy = "\\r?\\n";
@@ -40,12 +39,12 @@ public class WarehouseInterface extends JFrame implements ActionListener {
         try {
             reader = new BufferedReader(new FileReader(filePath));
             while ((line = reader.readLine()) != null) {
-                jobArray.add(Arrays.toString(line.split(csvSplitBy)));
+                jobArray.add(Arrays.toString(line.split(csvSplitBy))); // adds jobs from file to array
 
 //                for (String aJobArray : jobArray) {
 //                    System.out.println(aJobArray);
 //                }
-                System.out.println(jobArray.size());
+                System.out.println(jobArray.size()); // debug - get rid of in final version
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -63,9 +62,9 @@ public class WarehouseInterface extends JFrame implements ActionListener {
     private WarehouseInterface() {
         this.getContentPane().setLayout(new FlowLayout());
 
-        listModel = new DefaultListModel<>();
+        listModel = new DefaultListModel<>(); // the list that updates the JFrame
         for (int i = 0; i < jobArray.size(); i++) {
-            listModel.add(i, jobArray.get(i).substring(1, 6));
+            listModel.add(i, jobArray.get(i).substring(1, 6)); // adding job ID to the JFrame
         }
 
         jobList = new JList<>(listModel);
@@ -75,7 +74,7 @@ public class WarehouseInterface extends JFrame implements ActionListener {
                 index = jobList.getSelectedIndex();
                 cancelArray.add(0, jobList.getSelectedValue());
                 // System.out.println(selectedValuesList);
-                System.out.println(cancelArray.get(0));
+                System.out.println(cancelArray.get(0)); // checks what to do with selected items i.e delete them
             }
         });
 
@@ -98,8 +97,8 @@ public class WarehouseInterface extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String action = e.getActionCommand();
         if (action.equals("cancel")) {
-            listModel.remove(index);
-            // System.out.println(cancelArray.get(0));
+            listModel.remove(index); // The script that runs when the cancel button is pressed
+            // add a try and catch to avoid null pointer exceptions
         }
     }
 
