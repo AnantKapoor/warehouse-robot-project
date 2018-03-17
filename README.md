@@ -1,8 +1,7 @@
 ﻿# Warehouse Assignment - RP 2018
 
 ## Job Roles
-* **Co-Team Manager:** Anant Kapoor
-* **Co-Team Manager:** Will Tetlow
+* **Team Manager:** Anant Kapoor
 
 ### Team 1
 * Tarun
@@ -255,4 +254,47 @@ TA discussed:
 **15/03/2018 - 11:00 Room 225**
 ##### Agenda
 * Meet with TA
+
+### **15/03/2018**
+#### Members present:
+* Anant
+* Gintaré
+* Arun
+* Martynas
+* Tarun
+* Om
+* Will
+
+#### What was discussed
+* Meeting with TA
+* Discussed performance for intermediate deadline (20/20)
+* Discussed objectives for final week coming up to final warehouse submission.
+
+##### Warehouse Interface
+
+* List of previously completed jobs
+* Know which robot is doing which job
+* **Extension** Display robot's route/location
+
+##### Robot Motion
+
+* Rather than hardcoding turning value, alter algorithm so robot turns into line is found
+
+##### Robot Interface
+
+* **Optional** Show where robot is and what they're doing
+##### Bluetooth
+
+* Multiple threads for multiple robots
+* Serialisation and de-serialisation
+
+##### Route Excecution
+
+* Look at problems that may arise and solve them before they happen i.e. robot losing line etc
+
+##### Cancellation Prediction
+
+* Prioritise over localisation
+* Use any library available
+
 
