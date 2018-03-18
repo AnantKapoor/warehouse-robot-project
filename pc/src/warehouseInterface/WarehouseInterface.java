@@ -1,12 +1,6 @@
-import javax.swing.DefaultListModel;
-import javax.swing.JFrame;
-import javax.swing.JList;
-import javax.swing.SwingUtilities;
-import javax.swing.JScrollPane;
+import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.AbstractButton;
-import javax.swing.JButton;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -80,9 +74,9 @@ public class WarehouseInterface extends JFrame implements ActionListener {
 
         add(new JScrollPane(jobList));
 
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setTitle("Warehouse Interface");
-        this.setSize(200, 225);
+        this.setSize(275, 225);
         this.setLocationRelativeTo(null);
         this.setResizable(true);
         this.setVisible(true);
