@@ -88,7 +88,7 @@ public class WarehouseInterface extends JFrame implements ActionListener {
         this.setVisible(true);
         jobList.setFixedCellWidth(100);
 
-        JButton b1 = new JButton("Cancel");
+        JButton b1 = new JButton("Cancel Job");
         add(b1);
         b1.addActionListener(this);
         b1.setActionCommand("cancel");
@@ -97,8 +97,11 @@ public class WarehouseInterface extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String action = e.getActionCommand();
         if (action.equals("cancel")) {
-            listModel.remove(index); // The script that runs when the cancel button is pressed
-            // add a try and catch to avoid null pointer exceptions
+            try {
+                listModel.remove(index); // The script that runs when the cancel button is pressed
+            } catch (IndexOutOfBoundsException e1) {
+                System.err.println("No job selected.");
+            }
         }
     }
 
