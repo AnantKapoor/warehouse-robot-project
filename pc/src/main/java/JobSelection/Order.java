@@ -29,6 +29,9 @@ public class Order {
 	public ArrayList<OrderDetail> getDetail() {
 		return detail;
 	}
+	public int getJobID(){
+		return this.jobID;
+	}
 	public void setDetail(ArrayList<OrderDetail> detail) {
 		this.detail = detail;
 	}
