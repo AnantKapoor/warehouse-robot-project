@@ -1,5 +1,8 @@
 package warehouseInterface;
 
+import communication.Connection;
+import main.java.JobSelection.Order;
+
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -16,42 +19,22 @@ import java.awt.FlowLayout;
 
 public class WarehouseInterface extends JFrame implements ActionListener {
 
-    private static List<String> jobArray = new LinkedList<>();
+    private static List<Integer> jobArray = new LinkedList<>();
     private JList<String> jobList;
     private static List<String> cancelArray = new LinkedList<>();
     private int index;
     private DefaultListModel<String> listModel;
 
-    public static void main(String[] args) {
-        jobReader("C:/Users/Will/warehouse-assignment/pc/resources/jobs.csv"); // need to adjust this for repo
+    public static void main(ArrayList<Order> orders) {
+        jobReader(orders); // need to adjust this for repo
         SwingUtilities.invokeLater(WarehouseInterface::new);
+        Connection.main(orders);
     }
 
-    private static void jobReader(String filePath) {
-        BufferedReader reader = null;
-        String line;
-        String csvSplitBy = "\\r?\\n";
+    private static void jobReader(ArrayList<Order> orders) {
+        for(Order order : orders){
+            jobArray.add(order.getJobID()); // adds jobs from file to array
 
-        try {
-            reader = new BufferedReader(new FileReader(filePath));
-            while ((line = reader.readLine()) != null) {
-                jobArray.add(Arrays.toString(line.split(csvSplitBy))); // adds jobs from file to array
-
-//                for (String aJobArray : jobArray) {
-//                    System.out.println(aJobArray);
-//                }
-                System.out.println(jobArray.size()); // debug - get rid of in final version
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (reader != null) {
-                try {
-                    reader.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
         }
     }
 
@@ -60,7 +43,7 @@ public class WarehouseInterface extends JFrame implements ActionListener {
 
         listModel = new DefaultListModel<>(); // the list that updates the JFrame
         for (int i = 0; i < jobArray.size(); i++) {
-            listModel.add(i, jobArray.get(i).substring(1, 6)); // adding job ID to the JFrame
+            listModel.add(i, Integer.toString(jobArray.get(i))); // adding job ID to the JFrame
         }
 
         jobList = new JList<>(listModel);
