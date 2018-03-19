@@ -4,17 +4,10 @@ import communication.Connection;
 import main.java.JobSelection.Order;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 import java.awt.FlowLayout;
 
 public class WarehouseInterface extends JFrame implements ActionListener {
@@ -24,6 +17,14 @@ public class WarehouseInterface extends JFrame implements ActionListener {
     private static List<String> cancelArray = new LinkedList<>();
     private int index;
     private DefaultListModel<String> listModel;
+
+    public int getCurrentJob() {
+        return jobArray.get(0);
+    }
+
+    public void completedJob() {
+        listModel.remove(0);
+    }
 
     public static void main(ArrayList<Order> orders) {
         jobReader(orders); // need to adjust this for repo
@@ -77,7 +78,7 @@ public class WarehouseInterface extends JFrame implements ActionListener {
         String action = e.getActionCommand();
         if (action.equals("cancel")) {
             try {
-                listModel.remove(index); // The script that runs when the cancel button is pressed
+                new CancelJob(listModel, index); // The script that runs when the cancel button is pressed
             } catch (IndexOutOfBoundsException e1) {
                 System.err.println("No job selected.");
             }
