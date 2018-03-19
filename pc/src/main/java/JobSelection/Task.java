@@ -6,19 +6,22 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import lejos.robotics.mapping.LineMap;
 import main.java.PathFinding.PathInfo;
 import main.java.PathFinding.PathFinder;
 import rp.robotics.mapping.GridMap;
 import rp.robotics.navigation.GridPose;
+import rp.robotics.navigation.Heading;
 import rp.util.Collections;
 
 public class Task {
 	private Map<String, Integer> tasks = new HashMap<String, Integer>();
 	private double reward;
-	private ArrayList<OrderDetail> details = new ArrayList();
-	private Point dropPoint= new Point();
+	private ArrayList<OrderDetail> details;
+	private static final GridPose dropPoint= new GridPose(new Point(1,0),Heading.PLUS_X);
+	private static final GridPose startingPose= new GridPose(new Point(1,0),Heading.PLUS_X);
 	private ArrayList<ArrayList<Integer>>paths=new ArrayList<ArrayList<Integer>>();
-
+	
 	public Map<String, Integer> getTasks() {
 		return tasks;
 	}
@@ -35,10 +38,10 @@ public class Task {
 		return reward;
 	}
 
-	public float calculateReward(Map<String, Integer> tasks, GridMap map,
-			GridPose startingPose, ItemSpecifications itemSpecifications) {
+	public float calculateReward(Map<String, Integer> tasks, LineMap map,
+			 ItemSpecifications itemSpecifications) {
 		float totalReward = 0.0f;
-
+		details = new ArrayList<OrderDetail>();
 		ItemSpecifications itemSpecifications2 = itemSpecifications;
 		Map<String, Specifications> specs = itemSpecifications2
 				.getItemSpecification();
@@ -47,7 +50,7 @@ public class Task {
 		PathInfo pathInfo = new PathInfo(startingPose);
 		Iterator it = tasks.entrySet().iterator();
 		double totalWeight=0;
-		GridPose currentPose = null;
+		GridPose currentPose = startingPose;
 		while (it.hasNext()) {
 			Map.Entry pair = (Map.Entry) it.next();
 			String item = (String) pair.getKey();
@@ -62,17 +65,14 @@ public class Task {
 					Specifications itemData = (Specifications) pair2.getValue();
 					if(itemData.getWeight()<=50) {
 						currentPose = pathInfo.pose;
-						System.out.print(currentPose.getX()+" "+currentPose.getY()+" "+itemData.getCoordinates().getX()+" "+itemData.getCoordinates().getY()+" "+currentPose.getHeading().toString());
 						pathInfo = finder.FindPath(currentPose,
-								itemData.getCoordinates());
-						//System.out.println(currentPose.getX()+" "+currentPose.getY()+" "+itemData.getCoordinates().getX());
+								new GridPose(itemData.getCoordinates(), Heading.PLUS_X));
 						totalDistance += pathInfo.path.size();
 						currentPose = pathInfo.pose;
 						details.add(new OrderDetail(pathInfo.path));
 						
 						for(int i=0;i<count;i++) {
 							if(itemData.getWeight()+totalWeight<=50) {
-								System.out.println(" "+i);
 								double reward = itemData.getReward();
 								totalReward += (float) reward;
 								totalWeight+=itemData.getWeight();
@@ -85,26 +85,30 @@ public class Task {
 								ArrayList<Integer> newPath = (ArrayList<Integer>) pathInfo.path.clone();
 								newPath.add(3);
 								GridPose newPose=pathInfo.pose;
-								pathInfo=finder.FindPath(newPose, new Point((int)currentPose.getPosition().getX(),(int)currentPose.getPosition().getY()));
+								pathInfo=finder.FindPath(newPose, currentPose);
 								newPath.addAll(pathInfo.path);
 								totalWeight=itemData.getWeight();
 								//System.out.println(newPath.toString());
 								details.add(new OrderDetail(item2, newPath));
-								System.out.println("I stop working here");
 							}
 						}
-						count=0;
+						
 					}else return -1;	
 					}
 				}		
 			it2 = specs.entrySet().iterator();
 		}
-		System.out.println("next");
-		pathInfo=finder.FindPath(currentPose,dropPoint);
+		pathInfo=finder.FindPath(currentPose,new GridPose());
 		ArrayList<Integer>finalPath= (ArrayList<Integer>) pathInfo.path.clone();
 		finalPath.add(5);
+		currentPose=dropPoint;
+		/*pathInfo=finder.FindPath(currentPose,startingPose);
+		System.out.println(pathInfo.path.size()+"wooooot");
+		finalPath.addAll(pathInfo.path);
+		finalPath.add(6);*/
 		details.add(new OrderDetail(finalPath));
 		it = tasks.entrySet().iterator();
+		
 		this.reward = totalReward;
 		return totalReward / totalDistance;
 	}

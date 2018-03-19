@@ -9,8 +9,8 @@ public class PathInfo {
 	public GridPose pose;
 	public ArrayList<Integer>path = new ArrayList<Integer>();
 
-	public Point2D goal;
-	public PathInfo(GridPose pose,ArrayList<Integer> path,Point2D goal) {
+	public GridPose goal;
+	public PathInfo(GridPose pose,ArrayList<Integer> path,GridPose goal) {
 		this.pose=pose;
 		this.path=path;
 		this.goal=goal;

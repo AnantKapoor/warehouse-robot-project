@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import org.apache.log4j.Logger;
+
 import lejos.pc.comm.NXTComm;
 import lejos.pc.comm.NXTCommException;
 import lejos.pc.comm.NXTCommFactory;
@@ -16,6 +18,8 @@ import main.java.PathFinding.*;
 
 public class Connection implements Runnable {
 
+	private static final Logger logger = Logger.getLogger(Run.class);
+	
 	public static ArrayList<Order> allOrders;
     private DataInputStream m_dis;
     private DataOutputStream m_dos;
@@ -44,25 +48,55 @@ public class Connection implements Runnable {
 	    Scanner scan = new Scanner(System.in);
 	        try {
 	        	if(isConnected()) {
-	        		System.out.println("connected to");
+	        		logger.debug("PC connected to a robot" + m_nxt.name);
+	        		System.out.println("connected to" + m_nxt.name);
 	        	}
 	            while (isConnected()) {
 	            	
 	            	for (Order ord : allOrders) {
+	            	//Order ord=allOrders.get(0);
+	            		
 	            		int n = ord.getDetail().size();
-	            		for (int i = 0; i < n; i ++) {
+	            		int counter=ord.getDetail().size()-2;
+	            		for (int i = 0; i < ord.getDetail().size(); i++) {
 	            			ArrayList<Integer> steps = ord.getPath(i);
+	            			if(ord.getPath(i).size()==0){
+	            				//counter--;
+	            				continue;
+	            			}
+	            			//if(steps.size()==0){
+	            				//steps.add(4);
+	            			//}
+	            			
+	            			if(steps.size()>0&&steps.get(steps.size()-1)!=4&&steps.get(steps.size()-1)!=5){
+	            				if(steps.get(steps.size()-1)!=5){
+	            					steps.add(4);
+	            				}
+	            			}
+	            			
 	            			for(int step : steps) {
+	            				//System.out.println(step);
+	            				System.out.println(step);
 	            				m_dos.writeInt(step);
 	            				m_dos.flush();
 	            			}
-	            			m_dos.writeInt(100); // telling the robot it needs to wait for a button press
-	        				m_dos.flush();
+	            			/*if(steps.size()==0){
+	            			System.out.println(4);
+	            			m_dos.writeInt(4);
+	            			}*/
+            				//m_dos.flush();
+	            			//System.out.println("I am here");
+	            			//System.out.println(5);
+	            			//m_dos.writeInt(5); // telling the robot it needs to wait for a button press
+	        				//m_dos.flush();
+	        				//System.out.println("I am here");
 	        				readReply();
+	        				//System.out.println("I am here");
 	            		}
 	            	}
 	            	
 	            	int message = scan.nextInt();
+	            	System.out.println(message);
 	                m_dos.writeInt(message);
 	                m_dos.flush();
 	
@@ -92,9 +126,9 @@ public class Connection implements Runnable {
 
                     new NXTInfo(NXTCommFactory.BLUETOOTH, "OptimusPrime", "00:16:53:0A:97:1B"),};
 
-                   	//new NXTInfo(NXTCommFactory.BLUETOOTH, "Megatron", "0016530A9ABC"), };
+                   	//new NXTInfo(NXTCommFactory.BLUETOOTH, "Megatron", "00:16:53:08:9B:0D"), };
 
-            ArrayList<Connection> connections = new ArrayList<>(
+            ArrayList<Connection> connections = new ArrayList<Connection>(
                     nxts.length);
 
             for (NXTInfo nxt : nxts) {
@@ -105,9 +139,10 @@ public class Connection implements Runnable {
                 NXTComm nxtComm = NXTCommFactory
                         .createNXTComm(NXTCommFactory.BLUETOOTH);
                 connection.connect(nxtComm);
+                logger.debug("NXT connected to a robot");
             }
 
-            ArrayList<Thread> threads = new ArrayList<>(nxts.length);
+            ArrayList<Thread> threads = new ArrayList<Thread>(nxts.length);
 
             for (Connection connection : connections) {
                 threads.add(new Thread(connection));
