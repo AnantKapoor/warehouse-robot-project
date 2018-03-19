@@ -49,7 +49,7 @@ public class Connection implements Runnable {
 	        try {
 	        	if(isConnected()) {
 	        		logger.debug("PC connected to a robot" + m_nxt.name);
-	        		System.out.println("connected to" + m_nxt.name);
+	        		System.out.println("connected to " + m_nxt.name);
 	        	}
 	            while (isConnected()) {
 	            	
@@ -124,9 +124,11 @@ public class Connection implements Runnable {
         	
             NXTInfo[] nxts = {
 
-                    new NXTInfo(NXTCommFactory.BLUETOOTH, "OptimusPrime", "00:16:53:0A:97:1B"),};
+                    new NXTInfo(NXTCommFactory.BLUETOOTH, "OptimusPrime", "00:16:53:0A:97:1B"),
 
-                   	//new NXTInfo(NXTCommFactory.BLUETOOTH, "Megatron", "00:16:53:08:9B:0D"), };
+                   	new NXTInfo(NXTCommFactory.BLUETOOTH, "BumbleBee", "00:16:53:15:5F:A3"),
+                   	
+                   	new NXTInfo(NXTCommFactory.BLUETOOTH, "IronHide", "00:16:53:0A:9A:AB"),};
 
             ArrayList<Connection> connections = new ArrayList<Connection>(
                     nxts.length);
