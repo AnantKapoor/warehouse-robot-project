@@ -44,8 +44,7 @@ public class Connection implements Runnable {
 
     @Override
     public void run() {
-    	
-	    Scanner scan = new Scanner(System.in);
+    	int rank;
 	        try {
 	        	if(isConnected()) {
 	        		logger.debug("PC connected to a robot" + m_nxt.name);
@@ -54,19 +53,17 @@ public class Connection implements Runnable {
 	            while (isConnected()) {
 	            	
 	            	for (Order ord : allOrders) {
-	            	//Order ord=allOrders.get(0);
+	            		/*if(Integer.toString(ord.getID()).equals())){
+	            			continue;
+	            		}*/
 	            		
-	            		int n = ord.getDetail().size();
-	            		int counter=ord.getDetail().size()-2;
-	            		for (int i = 0; i < ord.getDetail().size(); i++) {
-	            			ArrayList<Integer> steps = ord.getPath(i);
-	            			if(ord.getPath(i).size()==0){
-	            				//counter--;
+	            		for (int i = 1; i <= ord.getDetail().size(); i++) {
+	            			ArrayList<Integer> steps = ord.getPath(i-1);
+	            			if(ord.getPath(i-1).size()==0){
+
 	            				continue;
 	            			}
-	            			//if(steps.size()==0){
-	            				//steps.add(4);
-	            			//}
+
 	            			
 	            			if(steps.size()>0&&steps.get(steps.size()-1)!=4&&steps.get(steps.size()-1)!=5){
 	            				if(steps.get(steps.size()-1)!=5){
@@ -74,40 +71,50 @@ public class Connection implements Runnable {
 	            				}
 	            			}
 	            			
-	            			for(int step : steps) {
-	            				//System.out.println(step);
-	            				System.out.println(step);
-	            				m_dos.writeInt(step);
-	            				m_dos.flush();
+	            			rank = i%3;
+	            			System.out.print("rank " + rank + " ");
+	            			
+	            			switch(rank) {
+	            			case 0:
+	            				checkRobot(steps, "IronHide");
+	            				break;
+	            			case 1:
+	            				checkRobot(steps, "BumbleBee");
+	            				break;
+	            			case 2:
+	            				checkRobot(steps, "OptimusPrime");
+	            				break;
+	            		
 	            			}
-	            			/*if(steps.size()==0){
-	            			System.out.println(4);
-	            			m_dos.writeInt(4);
-	            			}*/
-            				//m_dos.flush();
-	            			//System.out.println("I am here");
-	            			//System.out.println(5);
-	            			//m_dos.writeInt(5); // telling the robot it needs to wait for a button press
-	        				//m_dos.flush();
-	        				//System.out.println("I am here");
-	        				readReply();
-	        				//System.out.println("I am here");
+	         
+	        				
+
 	            		}
 	            	}
-	            	
-	            	int message = scan.nextInt();
-	            	System.out.println(message);
-	                m_dos.writeInt(message);
-	                m_dos.flush();
-	
 	                readReply();
 	            }
-	            scan.close();
+
 	        } catch (IOException e) {
 	            e.printStackTrace();
 	        }
 
     }
+
+	private void checkRobot(ArrayList<Integer> steps, String name) throws IOException {
+		if(m_nxt.name.equals(name)) {
+			sendSteps(steps);
+		}
+	}
+
+	private void sendSteps(ArrayList<Integer> steps) throws IOException {
+		for(int step : steps) {
+			//System.out.println(step);
+			System.out.println(step + " " + m_nxt.name);
+			m_dos.writeInt(step);
+			m_dos.flush();
+		}
+		readReply();
+	}
 
 	private void readReply() throws IOException {
 		int answer = m_dis.readInt();
@@ -128,7 +135,10 @@ public class Connection implements Runnable {
 
                    	new NXTInfo(NXTCommFactory.BLUETOOTH, "BumbleBee", "00:16:53:15:5F:A3"),
                    	
-                   	new NXTInfo(NXTCommFactory.BLUETOOTH, "IronHide", "00:16:53:0A:9A:AB"),};
+                   	new NXTInfo(NXTCommFactory.BLUETOOTH, "IronHide", "00:16:53:0A:9A:AB"),
+                   	
+                   	/*new NXTInfo(NXTCommFactory.BLUETOOTH, "Megatron", "00:16:53:08:9B:0D"),*/};
+            
 
             ArrayList<Connection> connections = new ArrayList<Connection>(
                     nxts.length);
@@ -151,7 +161,7 @@ public class Connection implements Runnable {
             }
 
             for (Thread thread : threads) {
-                thread.run();
+                thread.start();
             }
 
             for (Thread thread : threads) {
