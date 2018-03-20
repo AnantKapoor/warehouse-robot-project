@@ -283,6 +283,7 @@ TA discussed:
 ##### Robot Interface
 
 * **Optional** Show where robot is and what they're doing
+
 ##### Bluetooth
 
 * Multiple threads for multiple robots
