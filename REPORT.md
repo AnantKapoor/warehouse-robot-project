@@ -103,6 +103,7 @@ This will be a weekly report monitoring the team's progress
 * Robot rotates until line is found rather than rotating a hardcoded amount
 * **Robot Interface**
 * Ability to pick up and drop multiple items added.
+
 #### Objectives:
 * **Route Excecution**
 * Recieving position updates for checking against plan and updating world model
