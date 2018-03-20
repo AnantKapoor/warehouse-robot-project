@@ -30,6 +30,7 @@ robot build difficulty divided by 4 as task shared between team 1
 
 #### Martynas
 * Single robot A* route planning **40-60**
+* Multi robot A* route planning **50-70**
 * Job Assignment **40-60**
 * Integration **40-60**
 
