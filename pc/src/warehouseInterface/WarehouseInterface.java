@@ -17,7 +17,7 @@ public class WarehouseInterface extends JFrame implements ActionListener {
     private static List<String> cancelArray = new LinkedList<>();
     private int index;
     private DefaultListModel<String> listModel;
-    
+
     public static List<Integer> getJobList() {
         return jobArray;
     }
@@ -71,7 +71,7 @@ public class WarehouseInterface extends JFrame implements ActionListener {
         String action = e.getActionCommand();
         if (action.equals("cancel")) {
             try {
-                new CancelJob(listModel, index); // The script that runs when the cancel button is pressed
+                listModel.remove(index); // The script that runs when the cancel button is pressed
             } catch (IndexOutOfBoundsException e1) {
                 System.err.println("No job selected.");
             }
