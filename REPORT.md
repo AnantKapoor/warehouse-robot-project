@@ -1,7 +1,7 @@
 # Team Report
 This will be a weekly report monitoring the team's progress
 
-## Week 1 - 02/02/18
+## Week 1 - 02/03/18
 **3 weeks till deadline**
 ### Team 1
 #### Achieved:
@@ -31,7 +31,7 @@ This will be a weekly report monitoring the team's progress
 * Add log4j to pc subsystems
 * Add Junit tests to pc subsystems
 
-## Week 2 - 09/02/18
+## Week 2 - 09/3/18
 **2 weeks till deadline**
 ### Team 1
 #### Achieved:
@@ -62,7 +62,7 @@ This will be a weekly report monitoring the team's progress
 * Prepare for VIVA demonstrations (Tasks shown in README.md)
 
 
-## Week 3 - 16/02/18
+## Week 3 - 16/03/18
 **1 week till deadline**
 
 ### Team 1
@@ -75,7 +75,6 @@ This will be a weekly report monitoring the team's progress
 * **Route Excecution**
 * Recieving position updates for checking against plan and updating world model
 
-
 ### Team 2
 #### Objectives:
 * **Job Selection**
@@ -84,7 +83,6 @@ This will be a weekly report monitoring the team's progress
 * Sharing jobs across robots rather than one job per robot
 * **Multi Robot route planning**
 * Multiple robots, avoiding collisions
-
 
 
 ### Team 3
@@ -96,4 +94,38 @@ This will be a weekly report monitoring the team's progress
 * **Localisation**
 * Probalistic localisation using distance sensor
 
+## Week 4 - 20/03/18
+**2 days till deadline**
 
+### Team 1
+#### Achieved:
+* **Robot motion**
+* Robot rotates until line is found rather than rotating a hardcoded amount
+* **Robot Interface**
+* Ability to pick up and drop multiple items added.
+#### Objectives:
+* **Route Excecution**
+* Recieving position updates for checking against plan and updating world model
+
+### Team 2
+#### Achieved:
+* **Job Selection**
+* Cancellation prediction
+* Take current location of robot into account
+* Sharing jobs across robots rather than one job per robot
+
+#### Objectives:
+* **Multi Robot route planning**
+* Multiple robots, avoiding collisions
+
+
+### Team 3
+#### Achieved : 
+* **Bluetooth Communication**
+* Implemented for multiple robots
+
+#### Objectives :
+* **Warehouse Interface**
+* Jobs cancelled on interface are cancelled on robot
+* **Localisation**
+* Probalistic localisation using distance sensor

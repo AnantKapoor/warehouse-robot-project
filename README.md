@@ -305,4 +305,26 @@ TA discussed:
 ##### Agenda
 * Review progress of remaining tasks
 
+### **15/03/2018**
+#### Members present:
+* Anant
+* Gintaré
+* Tarun
+* Om
+* Will
+
+#### What was discussed:
+* Current progress
+* Remaining tasks for last two days
+
+##### Remaining tasks:
+**Team 1**
+* Fix robot motion, maybe slow robot down so junction and line detection are more accurate.
+
+**Team 2**
+* Multiple robot route planning, avoiding collisions
+
+**Team 3**
+* Finish warehouse interface, have the ability to cancel jobs on the robot through the interface.
+
 
