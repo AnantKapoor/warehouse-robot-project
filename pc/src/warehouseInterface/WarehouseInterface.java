@@ -17,15 +17,7 @@ public class WarehouseInterface extends JFrame implements ActionListener {
     private static List<String> cancelArray = new LinkedList<>();
     private int index;
     private DefaultListModel<String> listModel;
-
-    public static int getCurrentJob() {
-        return jobArray.get(0);
-    }
-
-    public void completedJob() {
-        listModel.remove(0);
-    }
-
+    
     public static List<Integer> getJobList() {
         return jobArray;
     }
@@ -53,10 +45,8 @@ public class WarehouseInterface extends JFrame implements ActionListener {
         jobList = new JList<>(listModel);
         jobList.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
-                final List<String> selectedValuesList = jobList.getSelectedValuesList();
                 index = jobList.getSelectedIndex();
                 cancelArray.add(0, jobList.getSelectedValue());
-                // System.out.println(selectedValuesList);
                 System.out.println(cancelArray.get(0)); // checks what to do with selected items i.e delete them
             }
         });
