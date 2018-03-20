@@ -32,7 +32,7 @@ robot build difficulty divided by 4 as task shared between team 1
 * Single robot A* route planning **40-60**
 * Multi robot A* route planning **50-70**
 * Job Assignment **40-60**
-* Integration **40-60**
+* Integration of everything **40-60**
 
 #### Tom
 * **N/A**
@@ -47,6 +47,8 @@ robot build difficulty divided by 4 as task shared between team 1
 
 #### Will
 * Warehouse Interface **30-50**
+* Integrated warehouse interface with jobs
 
 #### Hitesh
 * Bluetooth Communication **30-50**
+* Integrated communication with jobs
