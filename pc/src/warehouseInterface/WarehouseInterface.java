@@ -18,12 +18,16 @@ public class WarehouseInterface extends JFrame implements ActionListener {
     private int index;
     private DefaultListModel<String> listModel;
 
-    public int getCurrentJob() {
+    public static int getCurrentJob() {
         return jobArray.get(0);
     }
 
     public void completedJob() {
         listModel.remove(0);
+    }
+
+    public static List<Integer> getJobList() {
+        return jobArray;
     }
 
     public static void main(ArrayList<Order> orders) {
@@ -35,7 +39,6 @@ public class WarehouseInterface extends JFrame implements ActionListener {
     private static void jobReader(ArrayList<Order> orders) {
         for(Order order : orders){
             jobArray.add(order.getJobID()); // adds jobs from file to array
-
         }
     }
 
