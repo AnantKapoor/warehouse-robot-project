@@ -65,9 +65,9 @@ public class Connection implements Runnable {
 	            			continue;
 	            		}*/
 	            		
-	            		for (int i = 1; i <= ord.getDetail().size(); i++) {
-	            			ArrayList<Integer> steps = ord.getPath(i-1);
-	            			if(ord.getPath(i-1).size()==0){
+	            		for (int i = 0; i < ord.getDetail().size(); i++) {
+	            			ArrayList<Integer> steps = ord.getPath(i);
+	            			if(ord.getPath(i).size()==0){
 
 	            				continue;
 	            			}
@@ -84,7 +84,7 @@ public class Connection implements Runnable {
 
                             switch(rank) {
                                 case 0:
-                                    checkRobot(steps, robotNames[2]);
+                                    checkRobot(steps, robotNames[0]);
                                     System.out.println(rank + " " + m_nxt.name);
                                     break;
                                 case 1:
@@ -92,7 +92,7 @@ public class Connection implements Runnable {
                                     System.out.println(rank + " " + m_nxt.name);
                                     break;
                                 case 2:
-                                    checkRobot(steps, robotNames[0]);
+                                    checkRobot(steps, robotNames[2]);
                                     System.out.println(rank + " " + m_nxt.name);
                                     break;
                             }
