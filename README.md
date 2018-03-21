@@ -1,8 +1,7 @@
 ﻿# Warehouse Assignment - RP 2018
 
 ## Job Roles
-* **Co-Team Manager:** Anant Kapoor
-* **Co-Team Manager:** Will Tetlow
+* **Team Manager:** Anant Kapoor
 
 ### Team 1
 * Tarun
@@ -197,8 +196,6 @@ TA discussed:
 ##### Agenda
 **VIVA**
 
-
-
 ## Intermediate Submission
 ### **Due 12 March - 17:00**
 #### Expected to submit the following:
@@ -213,3 +210,91 @@ TA discussed:
 #### Additional Information
 * 20 minutes long
 * Split into demonstrations and individuals discussing their contributions to code
+
+### **14/03/2018**
+#### Members present:
+* Anant
+* Gintaré
+* Arun
+
+#### What was discussed
+* Discussion of remaining tasks for final submission
+* Assigned remaining tasks to sub teams 
+
+### Team 1
+#### Objectives:
+* **Robot Interface**
+* Unreliable human:
+* *Wrong number*
+* *timeouts*
+* Additional capabilites 
+* **Route Excecution**
+* Recieving position updates for checking against plan and updating world model
+
+### Team 2
+#### Objectives:
+* **Job Selection**
+* Cancellation prediction
+* Take current location of robot into account
+* Sharing jobs across robots rather than one job per robot
+* **Multi Robot route planning**
+* Multiple robots, avoiding collisions
+
+
+### Team 3
+#### Objectives :
+* **Bluetooth Communication**
+* Implement for multiple robots
+* **Warehouse Interface**
+* Robot plans and position updates
+* **Localisation**
+* Probalistic localisation using distance sensor
+
+#### Next Meeting
+**15/03/2018 - 11:00 Room 225**
+##### Agenda
+* Meet with TA
+
+### **15/03/2018**
+#### Members present:
+* Anant
+* Gintaré
+* Arun
+* Martynas
+* Tarun
+* Om
+* Will
+
+#### What was discussed
+* Meeting with TA
+* Discussed performance for intermediate deadline (20/20)
+* Discussed objectives for final week coming up to final warehouse submission.
+
+##### Warehouse Interface
+
+* List of previously completed jobs
+* Know which robot is doing which job
+* **Extension** Display robot's route/location
+
+##### Robot Motion
+
+* Rather than hardcoding turning value, alter algorithm so robot turns into line is found
+
+##### Robot Interface
+
+* **Optional** Show where robot is and what they're doing
+##### Bluetooth
+
+* Multiple threads for multiple robots
+* Serialisation and de-serialisation
+
+##### Route Excecution
+
+* Look at problems that may arise and solve them before they happen i.e. robot losing line etc
+
+##### Cancellation Prediction
+
+* Prioritise over localisation
+* Use any library available
+
+
