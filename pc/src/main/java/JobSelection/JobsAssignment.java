@@ -1,7 +1,5 @@
 package main.java.JobSelection;
 
-import java.util.ArrayList;
-
 public class JobsAssignment {
 	private TaskList task;
 	private int ID;
@@ -15,6 +13,7 @@ public class JobsAssignment {
 		this.reward=reward;
 		task=null;
 	}
+	
 	public TaskList getTask() {
 		return task;
 	}
@@ -24,11 +23,6 @@ public class JobsAssignment {
 	public void toStrin (){
 		if(task!=null) {
 			System.out.println(task.getName()+" "+task.getAmount());
-			if(task.getPath().size()!=0) {
-			for(int i=0;i<task.getPath().size();i++) {
-				System.out.print(" "+task.getPath().get(i));
-			}}
-			System.out.println();
 		}else System.out.println(ID);
 	}
 }
