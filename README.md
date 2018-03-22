@@ -323,6 +323,7 @@ TA discussed:
 
 **Team 2**
 * Multiple robot route planning, avoiding collisions
+* Job auctioning
 
 **Team 3**
 * Finish warehouse interface, have the ability to cancel jobs on the robot through the interface.

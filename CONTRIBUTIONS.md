@@ -8,6 +8,7 @@ robot build difficulty divided by 4 as task shared between team 1
 #### Tarun
 * Robot Build **(0-40)/4**
 * Integration **40-60**
+* Localisation
 * Aided route excecution
 
 #### Han
@@ -17,10 +18,12 @@ robot build difficulty divided by 4 as task shared between team 1
 #### Arun
 * Robot Build **(0-40)/4**
 * Route Exceution **30-50**
+* Localisation
 
 #### Om
 * Robot Build **(0-40)/4**
 * Robot Interface **0-40**
+* Localisation
 
 ### Team 2
 #### Gintarė
