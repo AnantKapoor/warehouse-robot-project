@@ -24,7 +24,6 @@ public class Run {
 	
 	private static final Logger logger = Logger.getLogger(Run.class);
 	private static ArrayList<Order> allOrders;
-	private static ArrayList<DropLocation> dropLocations;
 	public static ItemSpecifications itemSpecifications = new ItemSpecifications();
 	public static Jobs jobs = new Jobs();
 	private static ArrayList<ArrayList<Integer>> allPaths1 = new ArrayList<ArrayList<Integer>>();
@@ -41,10 +40,6 @@ public class Run {
 		jobs = ItemReader.jobs;
 
 		logger.debug("All job infromation stored.");
-		
-		dropLocations = ItemReader.getDropLocations();
-		
-		logger.debug("All drop location infromation stored.");
 
 		Iterator itemIterator = itemSpecifications.getItemSpecification().values().iterator();
 		allOrders = jobs.calculateRewards(itemSpecifications);
@@ -214,7 +209,6 @@ public class Run {
 		System.out.println(allPaths1.toString());
 		System.out.println(allPaths2.toString());
 		System.out.println(allPaths3.toString());
-		
 		/*while (finalList.size() >= i + 5) {
 			int collectedTasks = 0;
 			TaskList[] tasks = new TaskList[3];

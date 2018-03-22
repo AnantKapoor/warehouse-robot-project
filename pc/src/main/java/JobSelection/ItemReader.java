@@ -14,7 +14,6 @@ public class ItemReader {
     public static ItemSpecifications itemSpecifications;
     public static Jobs jobs;
     public static Map <Integer, Boolean> cancellations;
-    public static ArrayList <DropLocation> dropLocations;
     
     private static final Logger logger = Logger.getLogger(Run.class);
     
@@ -233,58 +232,9 @@ public class ItemReader {
         
         logger.debug("All item specifications have been read from the file (jobs.csv)");
     }
-    
-    public static void readDrops (String filePath){
-
-        String cvsSplitBy = ",";
-        FileReader file = null;
-
-        try {
-            file = new FileReader(filePath);
-        } catch (FileNotFoundException e) {
-        	logger.error("Error reading job information (jobs.csv)");
-            e.printStackTrace();
-        }
-        BufferedReader reader = new BufferedReader(file);
-
-        String line = null;
-        try {
-            line = reader.readLine();
-        } catch (IOException e1) {
-        	logger.error("Error reading job information (drops.csv)");
-            e1.printStackTrace();
-        }
-
-        while ((line != null)) {
-            String[] allParts = line.split(cvsSplitBy);
-
-            DropLocation drop = new DropLocation (Integer.parseInt(allParts[0]), Integer.parseInt(allParts[1]));
-            dropLocations.add(drop);
-            
-            try {
-                line = reader.readLine();
-            } catch (IOException e) {
-            	logger.error("Error reading job information (drops.csv)");
-                e.printStackTrace();
-            }
-        }
-
-        try {
-            reader.close();
-        } catch (IOException e) {
-        	logger.error("Error reading job information (drops.csv)");
-            e.printStackTrace();
-        }
-        
-        logger.debug("All item specifications have been read from the file (drops.csv)");
-    }
 
     public static ItemSpecifications getItemSpecifications() {
         return itemSpecifications;
-    }
-    
-    public static ArrayList<DropLocation> getDropLocations() {
-        return dropLocations;
     }
 
     public ItemReader (Jobs jobs, ItemSpecifications itemSpecifications) {
@@ -292,13 +242,11 @@ public class ItemReader {
         ItemReader.itemSpecifications = itemSpecifications;
     }
     public static void main (){
-    	dropLocations = new ArrayList <DropLocation>();
     	cancellations = new HashMap <Integer, Boolean>();
     	readCancellationInfo ("resources/predict.csv");
         readSpecs ("resources/items.csv");
         readJobs ("resources/jobs.csv");
         readLocations("resources/locations.csv");
-        readDrops("resources/drops.csv");
         logger.debug("ItemReader has parsed all of the information found in .csv files");
     }
 }
