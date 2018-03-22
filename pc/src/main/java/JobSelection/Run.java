@@ -21,7 +21,6 @@ public class Run {
 
 	private static final Logger logger = Logger.getLogger(Run.class);
 	private static ArrayList<Order> allOrders;
-	private static ArrayList<JobsAssignment> finalList;
 	public static ItemSpecifications itemSpecifications = new ItemSpecifications();
 	public static Jobs jobs = new Jobs();
 
@@ -51,22 +50,148 @@ public class Run {
 		});
 
 		logger.debug("All orders sorted by reward.");
-		finalList = new ArrayList<JobsAssignment>();
-		for (int i = 0; i < allOrders.size(); i++) {
-			finalList.add(new JobsAssignment(allOrders.get(i).getID(), allOrders.get(i).getReward()));
-			for (int j = 0; j < allOrders.get(i).getAllOrder().size(); j++) {
-				finalList.add(new JobsAssignment(allOrders.get(i).getAllOrder().get(j)));
-			}
+		ArrayList<Order> finalList1 = new ArrayList<Order>();
+		ArrayList<Order> finalList2 = new ArrayList<Order>();
+		ArrayList<Order> finalList3 = new ArrayList<Order>();
+		
+		for (int i = 0; i < allOrders.size()-3; i+=3) {
+			finalList1.add(allOrders.get(i));
+			finalList2.add(allOrders.get(i+1));
+			finalList3.add(allOrders.get(i+2));
 		}
 		GridPose robotPosition1 = new GridPose(new Point(1, 0), Heading.PLUS_Y);
 		GridPose robotPosition2 = new GridPose(new Point(3, 0), Heading.PLUS_Y);
 		GridPose robotPosition3 = new GridPose(new Point(2, 0), Heading.PLUS_Y);
-		int i = 0;
 		Map<String, Specifications> itemSpecs = itemSpecifications.getItemSpecification();
+		Specifications dropPoint1=new Specifications(0,0);
+		Specifications dropPoint2=new Specifications(0,0);
+		Specifications dropPoint3=new Specifications(0,0);
+		dropPoint1.addCoordinates(new Point (1,3));
+		dropPoint2.addCoordinates(new Point (2,4));
+		dropPoint3.addCoordinates(new Point (7,6));
+		itemSpecs.put("dp1",dropPoint1);
+		itemSpecs.put("dp2",dropPoint2);
+		itemSpecs.put("dp3",dropPoint3);
 		PathFinder finder = new PathFinder(MapUtils.createTrainingMap());
 		PathFinder2 finder2=new PathFinder2(MapUtils.createMarkingWarehouseMap());
-		ArrayList<PathInfo> pathInfo=new ArrayList<PathInfo>();
-		while (finalList.size() >= i + 5) {
+		ArrayList<TaskList> allTasks1=new ArrayList<TaskList>();
+		ArrayList<TaskList> allTasks2=new ArrayList<TaskList>();
+		ArrayList<TaskList> allTasks3=new ArrayList<TaskList>();
+		double carriedWeight=0;
+		for(int i = 0; i<finalList1.size();i++) {
+			int closestItem=Integer.MAX_VALUE;
+			int closestInt=-1;
+			for(int j=0;j<finalList1.get(i).getAllOrder().size();j++) {
+				for(int y=j;y<finalList1.get(i).getAllOrder().size();y++) {
+					int distance=finder.FindPath(robotPosition1, new GridPose(itemSpecs.get(finalList1.get(i).getAllOrder().get(y).getName()).getCoordinates(),
+							Heading.MINUS_X)).path.size();
+					if(distance<closestItem) {
+						closestInt=j;
+					}
+				}
+				Collections.swap(finalList1.get(i).getAllOrder(), closestInt, j);
+				Specifications specs=itemSpecs.get(finalList1.get(i).getAllOrder().get(j).getName());
+				carriedWeight+=specs.getWeight()*finalList1.get(i).getAllOrder().get(j).getAmount();
+				if(carriedWeight<50) {
+				robotPosition1=finder.FindPath(robotPosition1, new GridPose(itemSpecs.get(finalList1.get(i).getAllOrder().get(j).getName()).getCoordinates(),
+						Heading.MINUS_X)).pose;
+				} else {
+					robotPosition1=finder.FindPath(robotPosition1, new GridPose(itemSpecs.get("dp1").getCoordinates(),Heading.MINUS_X)).pose;
+					finalList1.get(i).getAllOrder().add(j,new TaskList(0,"dp1"));
+					j++;
+				}
+			}
+			allTasks1.addAll(finalList1.get(i).getAllOrder());
+		}
+		carriedWeight=0;
+		for(int i = 0; i<finalList2.size();i++) {
+			int closestItem=Integer.MAX_VALUE;
+			int closestInt=-1;
+			for(int j=0;j<finalList2.get(i).getAllOrder().size();j++) {
+				for(int y=j;y<finalList2.get(i).getAllOrder().size();y++) {
+					int distance=finder.FindPath(robotPosition2, new GridPose(itemSpecs.get(finalList2.get(i).getAllOrder().get(y).getName()).getCoordinates(),
+							Heading.MINUS_X)).path.size();
+					if(distance<closestItem) {
+						closestInt=j;
+					}
+				}
+				
+				Collections.swap(finalList2.get(i).getAllOrder(), closestInt, j);
+				Specifications specs=itemSpecs.get(finalList2.get(i).getAllOrder().get(j).getName());
+				carriedWeight+=specs.getWeight()*finalList2.get(i).getAllOrder().get(j).getAmount();
+				if(carriedWeight<50) {
+				robotPosition2=finder.FindPath(robotPosition2, new GridPose(itemSpecs.get(finalList2.get(i).getAllOrder().get(j).getName()).getCoordinates(),
+						Heading.MINUS_X)).pose;
+				} else {
+					robotPosition2=finder.FindPath(robotPosition2, new GridPose(itemSpecs.get("dp2").getCoordinates(),Heading.MINUS_X)).pose;
+					finalList2.get(i).getAllOrder().add(j,new TaskList(0,"dp2"));
+					j++;
+					carriedWeight=0;
+				}
+				System.out.println(carriedWeight);
+			}
+			allTasks2.addAll(finalList2.get(i).getAllOrder());
+		}	
+		carriedWeight=0;
+		for(int i = 0; i<finalList3.size();i++) {
+			int closestItem=Integer.MAX_VALUE;
+			int closestInt=-1;
+			for(int j=0;j<finalList3.get(i).getAllOrder().size();j++) {
+				for(int y=j;y<finalList3.get(i).getAllOrder().size();y++) {
+					int distance=finder.FindPath(robotPosition3, new GridPose(itemSpecs.get(finalList3.get(i).getAllOrder().get(y).getName()).getCoordinates(),
+							Heading.MINUS_X)).path.size();
+					if(distance<closestItem) {
+						closestInt=j;
+					}
+				}
+				Collections.swap(finalList3.get(i).getAllOrder(), closestInt, j);
+				Specifications specs=itemSpecs.get(finalList3.get(i).getAllOrder().get(j).getName());
+				carriedWeight+=specs.getWeight()*finalList3.get(i).getAllOrder().get(j).getAmount();
+				if(carriedWeight<50) {
+				robotPosition3=finder.FindPath(robotPosition3, new GridPose(itemSpecs.get(finalList3.get(i).getAllOrder().get(j).getName()).getCoordinates(),
+						Heading.MINUS_X)).pose;
+				} else {
+					robotPosition3=finder.FindPath(robotPosition3, new GridPose(itemSpecs.get("dp3").getCoordinates(),Heading.MINUS_X)).pose;
+					finalList3.get(i).getAllOrder().add(j,new TaskList(0,"dp3"));
+					j++;
+				}
+			}
+			allTasks3.addAll(finalList3.get(i).getAllOrder());
+		}
+		System.out.println("done");
+		robotPosition1 = new GridPose(new Point(1, 0), Heading.PLUS_Y);
+		robotPosition2 = new GridPose(new Point(3, 0), Heading.PLUS_Y);
+		robotPosition3 = new GridPose(new Point(2, 0), Heading.PLUS_Y);
+		int smallestAll=0;
+		if(allTasks1.size()<allTasks2.size()&&allTasks1.size()<allTasks3.size()) {
+			smallestAll=allTasks1.size();
+		}else if(allTasks2.size()<allTasks1.size()&&allTasks2.size()<allTasks3.size()) {
+			smallestAll=allTasks2.size();
+		}else if(allTasks3.size()<allTasks2.size()&&allTasks3.size()<allTasks1.size()) {
+			smallestAll=allTasks3.size();
+		}
+
+		ArrayList<ArrayList<Integer>> allPaths1 = new ArrayList<ArrayList<Integer>>();
+		ArrayList<ArrayList<Integer>> allPaths2 = new ArrayList<ArrayList<Integer>>();
+		ArrayList<ArrayList<Integer>> allPaths3 = new ArrayList<ArrayList<Integer>>();
+		ArrayList<PathInfo> finderPaths=new ArrayList<PathInfo>();
+		for(int i=0;i<smallestAll;i++) {
+			finderPaths=finder2.FindPath(robotPosition1, new GridPose(itemSpecs.get(allTasks1.get(i).getName()).getCoordinates(),Heading.MINUS_X)
+					, robotPosition2,  new GridPose(itemSpecs.get(allTasks2.get(i).getName()).getCoordinates(),Heading.MINUS_X),
+					robotPosition3,  new GridPose(itemSpecs.get(allTasks3.get(i).getName()).getCoordinates(),Heading.MINUS_X));
+			allPaths1.add(finderPaths.get(0).path);
+			robotPosition1=finderPaths.get(0).pose;
+			allPaths2.add(finderPaths.get(1).path);
+			robotPosition2=finderPaths.get(1).pose;
+			allPaths3.add(finderPaths.get(2).path);
+			robotPosition3=finderPaths.get(2).pose;
+			
+			//finder2.FindPath(robotPosition1, goalCoordinates1, robotPosition2, goalCoordinates2, robotPosition3, goalCoordinates3)
+		}
+		System.out.println(allPaths1.toString());
+		System.out.println(allPaths2.toString());
+		System.out.println(allPaths3.toString());
+		/*while (finalList.size() >= i + 5) {
 			int collectedTasks = 0;
 			TaskList[] tasks = new TaskList[3];
 			int[] tasksInt = new int[3];
@@ -258,10 +383,10 @@ public class Run {
 			finalList.get(tasksInt[0]).getTask().addPath(pathInfo.get(0).path);
 			finalList.get(tasksInt[1]).getTask().addPath(pathInfo.get(1).path);
 			finalList.get(tasksInt[2]).getTask().addPath(pathInfo.get(2).path);
-		}
-		for (int j=0;j<finalList.size()-10;j++) {
+		}*/
+		/*for (int j=0;j<finalList.size()-10;j++) {
 			finalList.get(j).toStrin();
-		}
+		}*/
 		logger.debug("All job selection tasks completed");
 	}
 
@@ -269,9 +394,9 @@ public class Run {
 		return jobs;
 	}
 
-	public static ArrayList<JobsAssignment> getAssignments() {
-		return finalList;
-	}
+	/*public static ArrayList<JobsAssignment> getAssignments() {
+//		return finalList;
+	}*/
 
 	public static ArrayList<Order> getOrders() {
 		return allOrders;
