@@ -25,6 +25,9 @@ public class Run {
 	private static ArrayList<Order> allOrders;
 	public static ItemSpecifications itemSpecifications = new ItemSpecifications();
 	public static Jobs jobs = new Jobs();
+	private static ArrayList<ArrayList<Integer>> allPaths1 = new ArrayList<ArrayList<Integer>>();
+	private static ArrayList<ArrayList<Integer>> allPaths2 = new ArrayList<ArrayList<Integer>>();
+	private static ArrayList<ArrayList<Integer>> allPaths3 = new ArrayList<ArrayList<Integer>>();
 
 	public static void main() {
 		ItemReader itemReader = new ItemReader(jobs, itemSpecifications);
@@ -172,11 +175,9 @@ public class Run {
 			smallestAll=allTasks3.size();
 		}
 
-		ArrayList<ArrayList<Integer>> allPaths1 = new ArrayList<ArrayList<Integer>>();
-		ArrayList<ArrayList<Integer>> allPaths2 = new ArrayList<ArrayList<Integer>>();
-		ArrayList<ArrayList<Integer>> allPaths3 = new ArrayList<ArrayList<Integer>>();
 		ArrayList<PathInfo> finderPaths=new ArrayList<PathInfo>();
 		for(int i=0;i<smallestAll;i++) {
+			
 			finderPaths=finder2.FindPath(robotPosition1, new GridPose(itemSpecs.get(allTasks1.get(i).getName()).getCoordinates(),Heading.MINUS_X)
 					, robotPosition2,  new GridPose(itemSpecs.get(allTasks2.get(i).getName()).getCoordinates(),Heading.MINUS_X),
 					robotPosition3,  new GridPose(itemSpecs.get(allTasks3.get(i).getName()).getCoordinates(),Heading.MINUS_X));
@@ -394,11 +395,18 @@ public class Run {
 	public static Jobs getJobs() {
 		return jobs;
 	}
-
+	public ArrayList<ArrayList<Integer>> getPaths1(){
+		return allPaths1;
+	}
+	public ArrayList<ArrayList<Integer>> getPaths2(){
+		return allPaths2;
+	}
+	public ArrayList<ArrayList<Integer>> getPaths3(){
+		return allPaths3;
+	}
 	/*public static ArrayList<JobsAssignment> getAssignments() {
 //		return finalList;
 	}*/
-
 	public static ArrayList<Order> getOrders() {
 		return allOrders;
 
