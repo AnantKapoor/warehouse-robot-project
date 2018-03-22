@@ -8,7 +8,6 @@ import java.util.Iterator;
 import java.util.Map;
 
 import main.java.PathFinding.PathFinder;
-import main.java.PathFinding.PathFinder2;
 import main.java.PathFinding.PathInfo;
 
 import org.apache.log4j.Logger;
@@ -17,8 +16,10 @@ import rp.robotics.mapping.MapUtils;
 import rp.robotics.navigation.GridPose;
 import rp.robotics.navigation.Heading;
 
-public class Run {
 
+
+public class Run {
+	
 	private static final Logger logger = Logger.getLogger(Run.class);
 	private static ArrayList<Order> allOrders;
 	public static ItemSpecifications itemSpecifications = new ItemSpecifications();
@@ -402,4 +403,5 @@ public class Run {
 		return allOrders;
 
 	}
+
 }

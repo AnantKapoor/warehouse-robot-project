@@ -46,6 +46,7 @@ public class PathFinder2 {
 				if (allPaths1.get(0).getDistance() == 0) {
 					foundPath = true;
 				} else {
+					System.out.println("I ran once");
 					move(1);
 					move(-1);
 					move(0);
@@ -81,6 +82,7 @@ public class PathFinder2 {
 				if (allPaths3.get(0).getDistance() == 0) {
 					foundPath = true;
 				} else {
+					System.out.println();
 					move3(1);
 					move3(-1);
 					move3(0);
@@ -121,7 +123,7 @@ public class PathFinder2 {
 				ArrayList<Point2D> nextPoint = (ArrayList<Point2D>) allPaths.get(0).visitedCoordinates.clone();
 				nextPath.add(direction);
 				nextPoint.add(nextLocation.getPosition());
-				if(allPaths1.get(0).visitedCoordinates.contains(point)) {
+			if (allPaths1.get(0).visitedCoordinates.contains(point)) {
 					int pointIndex =allPaths1.get(0).visitedCoordinates.indexOf(point);
 					int distance = Math.abs(pointIndex-allPaths.get(0).visitedCoordinates.size());
 					if(distance>1) {
@@ -132,6 +134,7 @@ public class PathFinder2 {
 				} else allPaths.add(1, new PathInfo(nextLocation, nextPath,allPaths.get(0).goal,nextPoint));
 			}
 		}
+		
 		public void move3(int direction) {
 			GridPose nextLocation = allPaths3.get(0).pose.clone();
 			nextLocation.rotateUpdate(direction * 90);
