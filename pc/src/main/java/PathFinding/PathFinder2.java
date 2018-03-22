@@ -42,7 +42,9 @@ public class PathFinder2 {
 			allPaths3.add(startingPoint3);
 			//move(2);
 			boolean foundPath=false;
-			while (!foundPath) {
+			int counter=0;
+			while (!foundPath||counter<100) {
+				counter++;
 				if (allPaths1.get(0).getDistance() == 0) {
 					foundPath = true;
 				} else {

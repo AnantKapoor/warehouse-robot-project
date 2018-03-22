@@ -14,7 +14,7 @@ public class Main {
 	private static final Logger logger = Logger.getLogger(Run.class);
 	
 	public static void main(String[] args) {
-		//MakePredictions.main();
+		MakePredictions.main();
 		logger.debug("All predictions made.");
 		Run.main();
 		ArrayList<ArrayList<Integer>> orders1 = Run.getPaths1();
