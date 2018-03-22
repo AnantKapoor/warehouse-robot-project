@@ -72,25 +72,33 @@ public class Connection extends Thread {
                     if (ord.size() == 0) {
                         continue;
                     }
-                    if (steps.size() > 0 && steps.get(steps.size() - 1) != 4 && steps.get(steps.size() - 1) != 5) {
+                    if (steps.size() > 0 && steps.get(steps.size() - 1) != 4 && steps.get(steps.size() - 1) != 3) {
                         if (steps.get(steps.size() - 1) != 5) {
                             steps.add(4);
                         }
-                    }
-                    m_receivedPath = checkRobot(steps, m_nxt.name);
-
-                }
-                //System.out.println(m_nxt.name + " received path " + m_receivedPath);
-                if (m_receivedPath) {
-
-                    //if(robotPathReceived.get(robotNames[0])&& robotPathReceived.get(robotNames[1])&& robotPathReceived.get(robotNames[2])){
+                    }                    
+                    for(int step : steps) {			
+            			System.out.println(step + " " + m_nxt.name);
+            			m_dos.writeInt(step);
+            			m_dos.flush();
+            		}
+            		System.out.println("Checking if robot has finished receiving the route  " + m_nxt.name );
+            		readReply();
+            		
+            		//if(robotPathReceived.get(robotNames[0])&& robotPathReceived.get(robotNames[1])&& robotPathReceived.get(robotNames[2])){
                     System.out.println("Sending execute command to " + m_nxt.name);
                     m_dos.writeInt(50);
                     m_dos.flush();
                     //}
                     System.out.println("Checking if the robot has finished the route  " + m_nxt.name);
                     readReply();
+
                 }
+                //System.out.println(m_nxt.name + " received path " + m_receivedPath);
+                
+
+                    
+                
 
 
             }
@@ -99,24 +107,16 @@ public class Connection extends Thread {
         }
     }
 
-     private boolean checkRobot(ArrayList<Integer> steps, String name) throws IOException {
+     /*private void checkRobot(ArrayList<Integer> steps, String name) throws IOException {
 		if(m_nxt.name.equals(name)) {
 			sendSteps(steps);
-            return true;
 		}
-		return false;
-	}
+	}*/
 
-	private void sendSteps(ArrayList<Integer> steps) throws IOException {
-		for(int step : steps) {			
-			System.out.println(step + " " + m_nxt.name);
-			m_dos.writeInt(step);
-			m_dos.flush();
-		}
-		System.out.println("Checking if robot has finished receiving the route  " + m_nxt.name );
-		readReply();
+	/*private void sendSteps(ArrayList<Integer> steps) throws IOException {
+		
 
-	}
+	}*/
 
 	private void readReply() throws IOException {
         System.out.println("Waiting for reply from " + m_nxt.name);

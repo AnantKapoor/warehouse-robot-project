@@ -16,6 +16,7 @@ import org.apache.log4j.Logger;
 import rp.robotics.mapping.MapUtils;
 import rp.robotics.navigation.GridPose;
 import rp.robotics.navigation.Heading;
+import rp.robotics.testing.TestMaps;
 
 
 
@@ -68,17 +69,17 @@ public class Run {
 		GridPose robotPosition2 = new GridPose(new Point(3, 0), Heading.PLUS_Y);
 		GridPose robotPosition3 = new GridPose(new Point(2, 0), Heading.PLUS_Y);
 		Map<String, Specifications> itemSpecs = itemSpecifications.getItemSpecification();
-		Specifications dropPoint1=new Specifications(0,0);
-		Specifications dropPoint2=new Specifications(0,0);
-		Specifications dropPoint3=new Specifications(0,0);
-		dropPoint1.addCoordinates(new Point (1,3));
-		dropPoint2.addCoordinates(new Point (2,4));
-		dropPoint3.addCoordinates(new Point (7,6));
+		Specifications dropPoint1=new Specifications(1,0);
+		Specifications dropPoint2=new Specifications(2,0);
+		Specifications dropPoint3=new Specifications(3,0);
+		dropPoint1.addCoordinates(new Point (0,1));
+		dropPoint2.addCoordinates(new Point (0,2));
+		dropPoint3.addCoordinates(new Point (0,3));
 		itemSpecs.put("dp1",dropPoint1);
 		itemSpecs.put("dp2",dropPoint2);
 		itemSpecs.put("dp3",dropPoint3);
-		PathFinder finder = new PathFinder(MapUtils.createTrainingMap());
-		PathFinder2 finder2=new PathFinder2(MapUtils.createMarkingWarehouseMap());
+		PathFinder finder = new PathFinder(TestMaps.warehouseMap());
+		PathFinder2 finder2=new PathFinder2(TestMaps.warehouseMap());
 		ArrayList<TaskList> allTasks1=new ArrayList<TaskList>();
 		ArrayList<TaskList> allTasks2=new ArrayList<TaskList>();
 		ArrayList<TaskList> allTasks3=new ArrayList<TaskList>();
@@ -177,14 +178,29 @@ public class Run {
 
 		ArrayList<PathInfo> finderPaths=new ArrayList<PathInfo>();
 		for(int i=0;i<smallestAll;i++) {
-			
+			if(itemSpecs.get(allTasks1.get(i).getName()).getCoordinates().equals(itemSpecs.get(allTasks2.get(i).getName()).getCoordinates())){
+				Collections.swap(allTasks2, i, i+1);
+			} else if(itemSpecs.get(allTasks1.get(i).getName()).getCoordinates().equals(itemSpecs.get(allTasks3.get(i).getName()).getCoordinates())) {
+				Collections.swap(allTasks3, i, i+1);
+			} else if (itemSpecs.get(allTasks2.get(i).getName()).getCoordinates().equals(itemSpecs.get(allTasks3.get(i).getName()).getCoordinates())) {
+				Collections.swap(allTasks3, i, i+1);
+			}
 			finderPaths=finder2.FindPath(robotPosition1, new GridPose(itemSpecs.get(allTasks1.get(i).getName()).getCoordinates(),Heading.MINUS_X)
 					, robotPosition2,  new GridPose(itemSpecs.get(allTasks2.get(i).getName()).getCoordinates(),Heading.MINUS_X),
 					robotPosition3,  new GridPose(itemSpecs.get(allTasks3.get(i).getName()).getCoordinates(),Heading.MINUS_X));
+			if(allTasks1.get(i).getName().equals("dp1")){
+				finderPaths.get(0).path.add(3);
+			}
 			allPaths1.add(finderPaths.get(0).path);
 			robotPosition1=finderPaths.get(0).pose;
+			if(allTasks2.get(i).getName().equals("dp2")){
+				finderPaths.get(1).path.add(3);
+			}
 			allPaths2.add(finderPaths.get(1).path);
 			robotPosition2=finderPaths.get(1).pose;
+			if(allTasks3.get(i).getName().equals("dp3")){
+				finderPaths.get(2).path.add(3);
+			}
 			allPaths3.add(finderPaths.get(2).path);
 			robotPosition3=finderPaths.get(2).pose;
 			
