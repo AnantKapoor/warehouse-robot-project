@@ -46,7 +46,6 @@ public class PathFinder2 {
 				if (allPaths1.get(0).getDistance() == 0) {
 					foundPath = true;
 				} else {
-					System.out.println("I ran once");
 					move(1);
 					move(-1);
 					move(0);
@@ -82,7 +81,6 @@ public class PathFinder2 {
 				if (allPaths3.get(0).getDistance() == 0) {
 					foundPath = true;
 				} else {
-					System.out.println();
 					move3(1);
 					move3(-1);
 					move3(0);

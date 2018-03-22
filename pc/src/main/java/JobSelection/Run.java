@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import main.java.PathFinding.PathFinder;
+import main.java.PathFinding.PathFinder2;
 import main.java.PathFinding.PathInfo;
 
 import org.apache.log4j.Logger;
@@ -129,7 +130,6 @@ public class Run {
 					j++;
 					carriedWeight=0;
 				}
-				System.out.println(carriedWeight);
 			}
 			allTasks2.addAll(finalList2.get(i).getAllOrder());
 		}	
