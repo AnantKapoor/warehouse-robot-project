@@ -26,6 +26,8 @@ public class WarehouseInterface extends JFrame implements ActionListener {
     private String tempValue;
     private String outputValue;
     private int evenMoreTempIndex;
+    private JPanel panel1;
+    private JButton b1;
 
     public static List<String> getOutputList() {
         return outputArray;
@@ -35,9 +37,9 @@ public class WarehouseInterface extends JFrame implements ActionListener {
         jobReader(orders); // need to adjust this for repo
         SwingUtilities.invokeLater(WarehouseInterface::new);
         Connection.main(orders);
-        for (String anOutputArray : outputArray) {
+        /*for (String anOutputArray : outputArray) {
             System.out.println(anOutputArray);
-        }
+        }*/
     }
 
     private static void jobReader(ArrayList<Order> orders) {
@@ -106,7 +108,6 @@ public class WarehouseInterface extends JFrame implements ActionListener {
             try {
                 for (int i = 0; i < outputModel.size(); i++) {
                     if (tempValue.equals(outputModel.get(i))) {
-                        System.out.println("THIS IS I: " + i);
                         outputModel.set(i, "removed");
                         evenMoreTempIndex = i;
                     }
@@ -125,13 +126,6 @@ public class WarehouseInterface extends JFrame implements ActionListener {
                 System.err.println(outputArray.size());
 
             }
-            try {
-                System.out.println(tempIndex);
-                System.out.println(outputArray.get(tempIndex));
-            } catch (IndexOutOfBoundsException e1) {
-                System.err.println("Struggling to print output array.");
-            }
         }
     }
-
 }
