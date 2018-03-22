@@ -22,7 +22,10 @@ public class Connection extends Thread {
 
 	private static final Logger logger = Logger.getLogger(Run.class);
 	
-	public static ArrayList<Order> allOrders;
+	public static ArrayList<ArrayList<Integer>> allOrders1;
+	public static ArrayList<ArrayList<Integer>> allOrders2;
+	public static ArrayList<ArrayList<Integer>> allOrders3;
+	public ArrayList<ArrayList<Integer>> allOrders;
 	private static String[] robotNames = {"OptimusPrime", "BumbleBee", "Megatron"};
     private DataInputStream m_dis;
     private DataOutputStream m_dos;
@@ -32,8 +35,9 @@ public class Connection extends Thread {
     private static boolean[] pathReceived = new boolean[3];
     private static Map<String, Boolean> robotPathReceived = new LinkedHashMap<String, Boolean>();
 
-    public Connection(NXTInfo _nxt) {
+    public Connection(NXTInfo _nxt, ArrayList<ArrayList<Integer>> orders) {
         m_nxt = _nxt;
+        allOrders = orders;
     }
 
     private boolean connect(NXTComm _comm) throws NXTCommException {
@@ -52,70 +56,47 @@ public class Connection extends Thread {
     @Override
     public void run() {
 
-    	int rank;
-	        try {
-	        	if(isConnected()) {
-	        		logger.debug("PC connected to a robot" + m_nxt.name);
-	        		System.out.println("connected to " + m_nxt.name);
-	        		
-	        	}
-	        	System.out.println("First check " + m_nxt.name);
-	        	readReply();
-	            while (isConnected()) {
-	            	
-	            	for (Order ord : allOrders) {	            		
-	            		for (int i = 0; i < ord.getDetail().size(); i++) {
-	            			System.out.print(i);
-                            /*if(!Integer.toString(ord.getID()).equals(WarehouseInterface.getOutputList().get(i))){
-                                continue;
-                            }*/
-	            			ArrayList<Integer> steps = ord.getPath(i);
-	            			if(ord.getPath(i).size()==0){
-	            				continue;
-	            			}
-	            			
-	            			if(steps.size()>0&&steps.get(steps.size()-1)!=4&&steps.get(steps.size()-1)!=5){
-	            				if(steps.get(steps.size()-1)!=5){
-	            					steps.add(4);
-	            				}
-	            			}
-	            			
-	            			rank = i%3;
-	            			/*System.out.println("Rank 1: Optimus, Rank 2: Bumble, Rank 3: Megatron");
-	            			System.out.println("rank " + rank + " " + m_nxt.name);*/
+        int rank;
+        try {
+            if (isConnected()) {
+                logger.debug("PC connected to a robot" + m_nxt.name);
+                System.out.println("connected to " + m_nxt.name);
 
-                            switch(rank) {
-                                case 0:
-                                    m_receivedPath = checkRobot(steps, robotNames[0]);
-                                    break;
-                                case 1:
-                                    m_receivedPath = checkRobot(steps, robotNames[1]);
-                                    break;
-                                case 2:
-                                    m_receivedPath = checkRobot(steps, robotNames[2]);
-                                    break;
-                            }
-                            //System.out.println(m_nxt.name + " received path " + m_receivedPath);
-                            if(m_receivedPath) {
+            }
+            System.out.println("First check " + m_nxt.name);
+            readReply();
+            while (isConnected()) {
 
-                            	if(robotPathReceived.get(robotNames[0])&& robotPathReceived.get(robotNames[1])&& robotPathReceived.get(robotNames[2])){
-                                    System.out.println("Sending execute command to " + m_nxt.name);
-                                    m_dos.writeInt(50);
-                                    m_dos.flush();                      
-                                }
-                            	System.out.println("Checking if the robot has finished the route  "  + m_nxt.name);
-                            	readReply();
-                            }
+                for (ArrayList<Integer> ord : allOrders) {
+                    ArrayList<Integer> steps = ord;
+                    if (ord.size() == 0) {
+                        continue;
+                    }
+                    if (steps.size() > 0 && steps.get(steps.size() - 1) != 4 && steps.get(steps.size() - 1) != 5) {
+                        if (steps.get(steps.size() - 1) != 5) {
+                            steps.add(4);
+                        }
+                    }
+                    m_receivedPath = checkRobot(steps, m_nxt.name);
 
-                            
-	            		}
-	            	}
-	            }
+                }
+                //System.out.println(m_nxt.name + " received path " + m_receivedPath);
+                if (m_receivedPath) {
 
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	        }
+                    //if(robotPathReceived.get(robotNames[0])&& robotPathReceived.get(robotNames[1])&& robotPathReceived.get(robotNames[2])){
+                    System.out.println("Sending execute command to " + m_nxt.name);
+                    m_dos.writeInt(50);
+                    m_dos.flush();
+                    //}
+                    System.out.println("Checking if the robot has finished the route  " + m_nxt.name);
+                    readReply();
+                }
 
+
+            }
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
     }
 
      private boolean checkRobot(ArrayList<Integer> steps, String name) throws IOException {
@@ -160,11 +141,11 @@ public class Connection extends Thread {
 	}
 
 
-    /**
-     * @param orders
-     */
-    public static void main(ArrayList<Order> orders) {
-    	allOrders = orders;
+
+    public static void main(ArrayList<ArrayList<Integer>> orders1, ArrayList<ArrayList<Integer>> orders2, ArrayList<ArrayList<Integer>> orders3) {
+    	allOrders1 = orders1;
+    	allOrders2 = orders2;
+    	allOrders3 = orders3;
         for(int i = 0; i <3; i++){
             robotPathReceived.put(robotNames[i], false);
         }
@@ -187,9 +168,9 @@ public class Connection extends Thread {
             /*for (NXTInfo nxt : nxts) {
                 connections.add(new Connection(nxt));
             }*/
-            Connection Optimus = new Connection(nxts[0]);
-            Connection Bumble = new Connection(nxts[1]);
-            Connection Megatron = new Connection(nxts[2]);
+            Connection Optimus = new Connection(nxts[0], allOrders1);
+            Connection Bumble = new Connection(nxts[1], allOrders2);
+            Connection Megatron = new Connection(nxts[2], allOrders3);
 
             connections.add(Optimus);
             connections.add(Bumble);

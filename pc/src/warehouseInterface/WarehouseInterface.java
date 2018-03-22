@@ -44,7 +44,7 @@ public class WarehouseInterface extends JFrame implements ActionListener {
 
     private static void jobReader(ArrayList<Order> orders) {
         for(Order order : orders){
-            jobArray.add(order.getJobID()); // adds jobs from file to array
+            jobArray.add(order.getID()); // adds jobs from file to array
         }
         for (Integer num: jobArray) {
             outputArray.add(Integer.toString(num));
