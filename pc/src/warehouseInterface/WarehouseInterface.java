@@ -1,6 +1,6 @@
 package warehouseInterface;
 
-import communication.Connection;
+import communication.ConnectionController;
 import main.java.JobSelection.Order;
 
 import javax.swing.*;
@@ -36,7 +36,7 @@ public class WarehouseInterface extends JFrame implements ActionListener {
     public static void main(ArrayList<Order> orders) {
         jobReader(orders); // need to adjust this for repo
         SwingUtilities.invokeLater(WarehouseInterface::new);
-        Connection.main(orders);
+        ConnectionController.main(orders);
         /*for (String anOutputArray : outputArray) {
             System.out.println(anOutputArray);
         }*/
