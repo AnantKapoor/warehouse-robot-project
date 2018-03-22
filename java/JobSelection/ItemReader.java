@@ -5,73 +5,14 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.apache.log4j.Logger;
 
 public class ItemReader {
     public static ItemSpecifications itemSpecifications;
     public static Jobs jobs;
-    public static Map <Integer, Boolean> cancellations;
     
     private static final Logger logger = Logger.getLogger(Run.class);
-    
-    public static void readCancellationInfo (String filePath){
-
-        String cvsSplitBy = ",";
-        FileReader file = null;
-
-        try {
-            file = new FileReader(filePath);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        BufferedReader reader = new BufferedReader(file);
-
-        String line = null;
-        try {
-            line = reader.readLine();
-        } catch (IOException e1) {
-        	logger.error("Error reading job cancellations (predict.csv)");
-            e1.printStackTrace();
-        }
-
-        try {
-            line = reader.readLine();
-        } catch (IOException e1) {
-        	logger.error("Error reading job cancellations (predict.csv)");
-            e1.printStackTrace();
-        }
-        
-        int tempId = 1;
-
-
-        while ((line != null)) {
-            String[] twoParts = line.split(cvsSplitBy);
-            if (twoParts[0].equals("0")){
-            	cancellations.put(tempId, false);
-            } else{
-            	cancellations.put(tempId, true);
-            }
-            tempId ++;
-            
-            try {
-                line = reader.readLine();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        try {
-            reader.close();
-        } catch (IOException e) {
-        	logger.error("Error reading job cancellations (predict.csv)");
-            e.printStackTrace();
-        }
-        
-        logger.debug("All job cancellation information has been read from the file (predict.csv)");
-    }
     
     public static void readSpecs (String filePath){
 
@@ -93,21 +34,17 @@ public class ItemReader {
             e1.printStackTrace();
         }
 
-        try {
-            line = reader.readLine();
-        } catch (IOException e1) {
-        	logger.error("Error reading item specifications (specs.csv)");
-            e1.printStackTrace();
-        }
-        
+        line = line.substring(0);
         //stores text found in the cipher file in two arrays (one for letters, one for their frequencies) encryptedText
         while ((line != null)) {
             String[] threeParts = line.split(cvsSplitBy);
+            
             itemSpecifications.addSpecifications(threeParts[0], Double.parseDouble(threeParts[1]), Double.parseDouble(threeParts[2]));
 
             try {
                 line = reader.readLine();
             } catch (IOException e) {
+            	logger.error("Error reading item specifications (specs.csv)");
                 e.printStackTrace();
             }
         }
@@ -143,13 +80,7 @@ public class ItemReader {
              e1.printStackTrace();
          }
          
-         try {
-             line = reader.readLine();
-         } catch (IOException e1) {
-        	 logger.error("Error reading item locations (locations.csv)");
-             e1.printStackTrace();
-         }
-         
+         line = line.substring(0);
          while (line != null) {
              String[] allParts = line.split(cvsSplitBy);
              String itemName=allParts[2];
@@ -186,9 +117,10 @@ public class ItemReader {
         	logger.error("Error reading job information (jobs.csv)");
             e1.printStackTrace();
         }
-        
-        int tempId = 1;
 
+        line = line.substring(1);
+
+        //stores text found in the cipher file in two arrays (one for letters, one for their frequencies) encryptedText
         while ((line != null)) {
             String[] allParts = line.split(cvsSplitBy);
 
@@ -205,15 +137,7 @@ public class ItemReader {
                 --tasksLeft;
             }
 
-            if (cancellations.get(tempId) == false){
-            	jobs.addJobs(jobID, task);
-            } else {
-            	System.out.println(jobID + " cancelled");
-            }
-            
-            tempId ++;
-            
-            
+            jobs.addJobs(jobID, task);
             //System.out.println(jobs.toString(jobID));
             try {
                 line = reader.readLine();
@@ -242,8 +166,6 @@ public class ItemReader {
         ItemReader.itemSpecifications = itemSpecifications;
     }
     public static void main (){
-    	cancellations = new HashMap <Integer, Boolean>();
-    	readCancellationInfo ("resources/predict.csv");
         readSpecs ("resources/items.csv");
         readJobs ("resources/jobs.csv");
         readLocations("resources/locations.csv");

@@ -1,15 +1,17 @@
 package main.java.CancellationPrediction;
 
+import java.io.File;
+
 import main.java.JobSelection.Run;
+
 import org.apache.log4j.Logger;
+
 import weka.classifiers.trees.*;
 import weka.core.Attribute;
 import weka.core.Instances;
 import weka.core.SerializationHelper;
 import weka.core.converters.ArffLoader;
 import weka.core.converters.Loader;
-
-import java.io.File;
 
 /**
  * The Train class is responsible for loading the training data, instantiating a

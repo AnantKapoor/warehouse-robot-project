@@ -32,7 +32,7 @@ public class plswork {
     			}
     			for(int step : steps) {
     				//System.out.println(step);
-    				//System.out.println(step);
+    				System.out.println(step);
     			}
     			
     		}

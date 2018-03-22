@@ -22,7 +22,7 @@ public class Client {
 		DataInputStream inputStream = connection.openDataInputStream();
 		DataOutputStream outputStream = connection.openDataOutputStream();
 		System.out.println("Connected");
-		//Robot robot = new Robot();
+		Robot robot = new Robot();
 		ArrayList<Integer> path = new ArrayList<>();
 		while (true) {
 
@@ -39,7 +39,7 @@ public class Client {
 			}
 		}
 		System.out.println("executing path : " + path);
-		//robot.executeRoute(path);
+		robot.executeRoute(path);
 		try {
 			outputStream.writeInt(5);
 		} catch (IOException e) {
