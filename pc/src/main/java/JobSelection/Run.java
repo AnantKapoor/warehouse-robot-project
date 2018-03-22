@@ -395,13 +395,13 @@ public class Run {
 	public static Jobs getJobs() {
 		return jobs;
 	}
-	public ArrayList<ArrayList<Integer>> getPaths1(){
+	public static ArrayList<ArrayList<Integer>> getPaths1(){
 		return allPaths1;
 	}
-	public ArrayList<ArrayList<Integer>> getPaths2(){
+	public static ArrayList<ArrayList<Integer>> getPaths2(){
 		return allPaths2;
 	}
-	public ArrayList<ArrayList<Integer>> getPaths3(){
+	public static ArrayList<ArrayList<Integer>> getPaths3(){
 		return allPaths3;
 	}
 	/*public static ArrayList<JobsAssignment> getAssignments() {

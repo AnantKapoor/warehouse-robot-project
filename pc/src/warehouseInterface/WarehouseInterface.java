@@ -36,7 +36,7 @@ public class WarehouseInterface extends JFrame implements ActionListener {
     public static void main(ArrayList<Order> orders) {
         jobReader(orders); // need to adjust this for repo
         SwingUtilities.invokeLater(WarehouseInterface::new);
-        Connection.main(orders);
+        //Connection.main(orders);
         /*for (String anOutputArray : outputArray) {
             System.out.println(anOutputArray);
         }*/

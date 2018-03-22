@@ -17,8 +17,11 @@ public class Main {
 		MakePredictions.main();
 		logger.debug("All predictions made.");
 		Run.main();
-		ArrayList<Order> orders = Run.getOrders();
+		ArrayList<ArrayList<Integer>> orders1 = Run.getPaths1();
+		ArrayList<ArrayList<Integer>> orders2 = Run.getPaths2();
+		ArrayList<ArrayList<Integer>> orders3 = Run.getPaths3();
 //       ArrayList<Order> orders = new ArrayList<>();
-		WarehouseInterface.main(orders);
+		//WarehouseInterface.main(orders1, orders2, orders3);
+        Connection.main(orders1, orders2, orders3);
 	}
 }
