@@ -31,8 +31,10 @@ public class PathFinder {
 		allPaths.add(startingPoint);
 		move(2);
 		allPaths.add(startingPoint);
+		int counter=0;
 		if(map.inside(new Point((int)goalCoordinates.getX(),(int) goalCoordinates.getY()))&&  map.inside(new Point((int)goalCoordinates.getX(),(int) goalCoordinates.getY()))) {
-			while (!foundPath) {
+			while (!foundPath||counter<100) {
+				counter++;
 				if (allPaths.get(0).getDistance() == 0) {
 					foundPath = true;
 				} else {

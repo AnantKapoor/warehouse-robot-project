@@ -21,6 +21,8 @@ public class Task {
 	private static final GridPose dropPoint= new GridPose(new Point(1,0),Heading.PLUS_X);
 	private static final GridPose startingPose= new GridPose(new Point(1,0),Heading.PLUS_X);
 	private ArrayList<ArrayList<Integer>>paths=new ArrayList<ArrayList<Integer>>();
+	private ArrayList<TaskList> stealStuff=new ArrayList();
+	private ArrayList<OrderDetail> allOrder= new ArrayList();
 	
 	public Map<String, Integer> getTasks() {
 		return tasks;
@@ -37,9 +39,12 @@ public class Task {
 	public double getReward() {
 		return reward;
 	}
-
+	public ArrayList<TaskList> getTaskList(){
+		return stealStuff;
+	}
 	public float calculateReward(Map<String, Integer> tasks, LineMap map,
 			 ItemSpecifications itemSpecifications) {
+		
 		float totalReward = 0.0f;
 		details = new ArrayList<OrderDetail>();
 		ItemSpecifications itemSpecifications2 = itemSpecifications;
@@ -50,6 +55,7 @@ public class Task {
 		PathInfo pathInfo = new PathInfo(startingPose);
 		Iterator it = tasks.entrySet().iterator();
 		double totalWeight=0;
+		ArrayList<TaskList> allOrder = new ArrayList();
 		GridPose currentPose = startingPose;
 		while (it.hasNext()) {
 			Map.Entry pair = (Map.Entry) it.next();
@@ -62,6 +68,7 @@ public class Task {
 				Map.Entry pair2 = (Map.Entry) it2.next();
 				String item2 = (String) pair2.getKey();
 				if (item2.equals(item)) {
+					
 					Specifications itemData = (Specifications) pair2.getValue();
 					if(itemData.getWeight()<=50) {
 						currentPose = pathInfo.pose;
@@ -70,7 +77,7 @@ public class Task {
 						totalDistance += pathInfo.path.size();
 						currentPose = pathInfo.pose;
 						details.add(new OrderDetail(pathInfo.path));
-						
+						stealStuff.add(new TaskList(count,item2));
 						for(int i=0;i<count;i++) {
 							if(itemData.getWeight()+totalWeight<=50) {
 								double reward = itemData.getReward();

@@ -186,17 +186,9 @@ public class ItemReader {
         	logger.error("Error reading job information (jobs.csv)");
             e1.printStackTrace();
         }
-
-        try {
-            line = reader.readLine();
-        } catch (IOException e1) {
-        	logger.error("Error reading job information (jobs.csv)");
-            e1.printStackTrace();
-        }
         
         int tempId = 1;
 
-        //stores text found in the cipher file in two arrays (one for letters, one for their frequencies) encryptedText
         while ((line != null)) {
             String[] allParts = line.split(cvsSplitBy);
 
@@ -215,6 +207,8 @@ public class ItemReader {
 
             if (cancellations.get(tempId) == false){
             	jobs.addJobs(jobID, task);
+            } else {
+            	System.out.println(jobID + " cancelled");
             }
             
             tempId ++;

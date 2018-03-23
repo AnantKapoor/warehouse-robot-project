@@ -4,14 +4,19 @@ import java.util.ArrayList;
 
 public class Order {
 	private int jobID;
+	private ArrayList<TaskList> allOrder;
 	private float rewardRate;
 	private double reward;
 	private ArrayList<OrderDetail> detail;
-	public Order(int jobID,float rewardRate,double reward,ArrayList<OrderDetail> detail) {
+	public Order(int jobID,float rewardRate,double reward,ArrayList<OrderDetail> detail,ArrayList<TaskList> allOrder) {
 		this.jobID=jobID;
 		this.rewardRate=rewardRate;
 		this.reward=reward;
 		this.setDetail(detail);
+		this.allOrder=allOrder;
+	}
+	public ArrayList<TaskList> getAllOrder(){
+		return allOrder;
 	}
 	public Float getRate() {
 		return rewardRate;

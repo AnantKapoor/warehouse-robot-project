@@ -48,7 +48,7 @@ public class Jobs {
             float calculation = tasks.calculateReward(taskMap,MapUtils.createTrainingMap(), itemSpecifications);
             rewards.put(jobID, calculation);
            // System.out.println("reward of job " + jobID + "---->" + calculation);
-            allOrders.add(new Order(jobID,calculation,tasks.getReward(),tasks.getDetails()));
+            allOrders.add(new Order(jobID,calculation,tasks.getReward(),tasks.getDetails(),tasks.getTaskList()));
         }
         logger.debug("Individual rewards for each jobs caluclated");
         return allOrders;
