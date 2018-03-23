@@ -2,11 +2,11 @@ package main.java.PathFinding;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 
 import lejos.geom.Point;
-import lejos.robotics.mapping.LineMap;
 import rp.robotics.mapping.GridMap;
 import rp.robotics.navigation.GridPose;
 
@@ -32,21 +32,23 @@ public class PathFinder2 {
 			points2.add(startingPose2.getPosition());
 			points3.add(startingPose3.getPosition());
 			PathInfo startingPoint1 = new PathInfo(startingPose1, path,
-					goalCoordinates1,points1);
+					goalCoordinates1,new ArrayList<Point2D>(
+							Arrays.asList(startingPose1.getPosition()))); 
 			PathInfo startingPoint2 = new PathInfo(startingPose2, path,
-					goalCoordinates2,points2);
+					goalCoordinates2,new ArrayList<Point2D>(
+							Arrays.asList(startingPose2.getPosition())));
 			PathInfo startingPoint3 = new PathInfo(startingPose3, path,
-					goalCoordinates3,points3);
+					goalCoordinates3,new ArrayList<Point2D>(
+							Arrays.asList(startingPose3.getPosition()))); 
 			allPaths1.add(startingPoint1);
 			allPaths2.add(startingPoint2);
 			allPaths3.add(startingPoint3);
-			move(2);
+			//move(2);
 			boolean foundPath=false;
 			while (!foundPath) {
 				if (allPaths1.get(0).getDistance() == 0) {
 					foundPath = true;
 				} else {
-					System.out.println("I ran once");
 					move(1);
 					move(-1);
 					move(0);
@@ -59,6 +61,7 @@ public class PathFinder2 {
 					});
 				}
 			}
+			System.out.println(foundPath);
 			foundPath=false;
 			move2(2,allPaths2);
 			while(!foundPath) {
@@ -77,12 +80,12 @@ public class PathFinder2 {
 					});
 				}
 			}
+			System.out.println(foundPath);
 			foundPath=false;
 			while(!foundPath) {
 				if (allPaths3.get(0).getDistance() == 0) {
 					foundPath = true;
 				} else {
-					System.out.println();
 					move3(1);
 					move3(-1);
 					move3(0);
@@ -95,6 +98,8 @@ public class PathFinder2 {
 					});
 				}
 			}
+			
+			System.out.println(foundPath);
 			ArrayList<PathInfo>finalPaths=new ArrayList<PathInfo>();
 			finalPaths.add(allPaths1.get(0));
 			finalPaths.add(allPaths2.get(0));
@@ -106,8 +111,9 @@ public class PathFinder2 {
 			nextLocation.rotateUpdate(direction * 90);
 			nextLocation.moveUpdate();
 			if (map.isValidTransition(allPaths1.get(0).pose.getPosition(),nextLocation.getPosition())) {
-				ArrayList<Integer> nextPath = (ArrayList<Integer>) allPaths1.get(0).path.clone();
-				ArrayList<Point2D> nextPoint = (ArrayList<Point2D>) allPaths1.get(0).visitedCoordinates.clone();
+				ArrayList<Integer> nextPath = allPaths1.get(0).path;
+				
+				ArrayList<Point2D> nextPoint = (ArrayList<Point2D>) allPaths1.get(0).visitedCoordinates;
 				nextPath.add(direction);
 				nextPoint.add(nextLocation.getPosition());
 				allPaths1.add(1, new PathInfo(nextLocation, nextPath,allPaths1.get(0).goal,nextPoint));
@@ -120,7 +126,7 @@ public class PathFinder2 {
 			if (map.isValidTransition(allPaths.get(0).pose.getPosition(),nextLocation.getPosition())) {
 				Point2D point=nextLocation.getPosition();
 				ArrayList<Integer> nextPath = (ArrayList<Integer>) allPaths.get(0).path.clone();
-				ArrayList<Point2D> nextPoint = (ArrayList<Point2D>) allPaths.get(0).visitedCoordinates.clone();
+				ArrayList<Point2D> nextPoint =  (ArrayList<Point2D>) allPaths.get(0).visitedCoordinates.clone();
 				nextPath.add(direction);
 				nextPoint.add(nextLocation.getPosition());
 				if(allPaths1.get(0).visitedCoordinates.contains(point)) {

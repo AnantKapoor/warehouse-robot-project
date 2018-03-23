@@ -11,7 +11,7 @@ public class PathInfo {
 	public ArrayList<Point2D> visitedCoordinates=new ArrayList<Point2D>();
 	public GridPose goal;
 	
-	public PathInfo(GridPose pose,ArrayList<Integer> path,GridPose goal,ArrayList<Point2D> visitedCoordintes) {
+	public PathInfo(GridPose pose,ArrayList<Integer> path,GridPose goal, ArrayList<Point2D> visitedCoordinates) {
 		this.pose=pose;
 		this.path=path;
 		this.goal=goal;
@@ -27,5 +27,9 @@ public class PathInfo {
 	}
 	public Integer getDistance() {
 		return (int) (Math.abs(pose.getX()-goal.getX())+Math.abs(pose.getY()-goal.getY()));
+	}
+	public char[] get(int i) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
