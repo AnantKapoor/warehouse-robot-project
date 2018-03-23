@@ -30,6 +30,7 @@ robot build difficulty divided by 4 as task shared between team 1
 * Job parsing **0-40**
 * Job selection **30-50**
 * Cancellation Prediction **40-60**
+* Testing and Logging
 
 #### Martynas
 * Single robot A* route planning **40-60**
