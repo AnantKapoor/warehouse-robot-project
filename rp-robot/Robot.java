@@ -1,6 +1,5 @@
 package warehouse;
 
-import java.io.DataInputStream;
 import java.util.ArrayList;
 
 import lejos.nxt.Button;
@@ -18,25 +17,23 @@ public class Robot {
 	private WheeledRobotSystem robot = new WheeledRobotSystem(
 			new WheeledRobotConfiguration(0.056f, 0.120f, 0.218f, Motor.C, Motor.A));
 	private DifferentialPilot rPilot = robot.getPilot();
-	private final double DEFAULT_ROTATE_SPEED = 0.5 * this.rPilot.getMaxRotateSpeed();
-	private final int DEFAULT_TRAVEL_SPEED = 700; // 700
+	private final double DEFAULT_ROTATE_SPEED = 0.6 * this.rPilot.getMaxRotateSpeed();
+	private final int DEFAULT_TRAVEL_SPEED = 540; // 540
 	public final double LENGTH = robot.getConfig().getRobotLength();
 	public final LightSensor LEFT = new LightSensor(SensorPort.S3);
 	public final LightSensor MIDDLE = new LightSensor(SensorPort.S2);
 	public final LightSensor RIGHT = new LightSensor(SensorPort.S1);
 	public final OpticalDistanceSensor IR = new OpticalDistanceSensor(SensorPort.S4);
-	private boolean atJunction = false;
+	private boolean atJunction = true;
 	private boolean running = true;
 	private int[] calibratedVals;
-	private int direction = 2; // assume facing south from beginning
+	private int direction = 0; // assume facing north from beginning
 	private int[] coordinates = { 0, 0 };
 
 	public Robot() {
 		rPilot.setRotateSpeed(DEFAULT_ROTATE_SPEED);
 		calibratedVals = calibrateLightSensors();
-		int initialDir = Button.waitForAnyPress();
-		// faceSouth(getInitialDir(initialDir));
-		// coordinates = Interface.getCoordinates(); // manually enter coordinates
+		coordinates = Interface.getCoordinates(); // manually enter coordinates
 		Interface.printPose(coordinates, direction);
 	}
 
@@ -45,26 +42,16 @@ public class Robot {
 		Motor.A.setSpeed(DEFAULT_TRAVEL_SPEED);
 	}
 
-	private int getInitialDir(int dir) {
-		switch (dir) {
-		case Button.ID_RIGHT:
-			return 3;
-		case Button.ID_ESCAPE:
-			return 2;
-		case Button.ID_LEFT:
-			return 1;
-		}
-		return 0;
-	}
+	/*
+	 * private int getInitialDir(int dir) { switch (dir) { case Button.ID_RIGHT:
+	 * return 3; case Button.ID_ESCAPE: return 2; case Button.ID_LEFT: return 1; }
+	 * return 0; }
+	 */
 
 	private void forward() {
 		setDefaultSpd();
 		Motor.C.forward();
 		Motor.A.forward();
-	}
-
-	private void travel(double distance) {
-		rPilot.travel(distance, false);
 	}
 
 	private void stop() {
@@ -76,36 +63,19 @@ public class Robot {
 		rPilot.rotate(1.014 * angle, immediateReturn);
 	}
 
-	private void faceSouth(int currentDir) {
-		switch (currentDir) {
-		case 0: // north
-			rotateAtJunction(2);
-			break;
-		case 1: // east
-			rotateAtJunction(-1);
-			break;
-		case 2: // south
-			break;
-		case 3: // west
-			rotateAtJunction(1);
-			break;
-		}
-		stop();
-	}
-
-	private void updateCoord(int reverse) {
+	private void updateCoord() {
 		switch (direction) {
 		case 0:
-			coordinates[1] -= reverse * 1;
+			coordinates[1] += 1;
 			break;
 		case 1:
-			coordinates[0] += reverse * 1;
+			coordinates[0] += 1;
 			break;
 		case 2:
-			coordinates[1] += reverse * 1;
+			coordinates[1] -= 1;
 			break;
 		case 3:
-			coordinates[0] -= reverse * 1;
+			coordinates[0] -= 1;
 			break;
 		}
 	}
@@ -157,6 +127,7 @@ public class Robot {
 		while (isWhite(lV, calibratedVals[1]) && !isWhite(rV, calibratedVals[5])) {
 			lV = LEFT.getLightValue();
 			rV = RIGHT.getLightValue();
+			Motor.C.setSpeed(DEFAULT_TRAVEL_SPEED);
 			Motor.A.setSpeed(13 * DEFAULT_TRAVEL_SPEED / 20);
 		}
 	}
@@ -165,6 +136,7 @@ public class Robot {
 		while (!isWhite(lV, calibratedVals[1]) && isWhite(rV, calibratedVals[5])) {
 			lV = LEFT.getLightValue();
 			rV = RIGHT.getLightValue();
+			Motor.A.setSpeed(DEFAULT_TRAVEL_SPEED);
 			Motor.C.setSpeed(13 * DEFAULT_TRAVEL_SPEED / 20);
 		}
 	}
@@ -182,12 +154,10 @@ public class Robot {
 			double lV = LEFT.getLightValue();
 			double rV = RIGHT.getLightValue();
 			double mV = MIDDLE.getLightValue();
-			float range = IR.getRange();
-			// findObstacle
 			if (!isWhite(lV, calibratedVals[1]) && !isWhite(mV, calibratedVals[3]) && !isWhite(rV, calibratedVals[5])) {
 				atJunction = true;
 				running = false;
-				updateCoord(1);
+				updateCoord();
 				Interface.printPose(coordinates, direction);
 			} else if (!isWhite(lV, calibratedVals[1]) && isWhite(rV, calibratedVals[5])) {
 				adjustLeft(lV, rV); // needs to adjust to the left
@@ -197,11 +167,6 @@ public class Robot {
 			forward();
 		}
 	}
-
-	/*
-	 * private boolean detectObstacle(float currentRange) { if (currentRange < 25) {
-	 * System.out.println("obstacle in the way"); return true; } return false; }
-	 */
 
 	private void rotateAtJunction(int rotationMultiple) {
 		if (rotationMultiple < 0) {
@@ -242,11 +207,15 @@ public class Robot {
 	}
 
 	public void executeRoute(ArrayList<Integer> directions) {
+		LCD.clear(3);
+		LCD.clear(4);
+		LCD.clear(5);
+		LCD.clear(6);
 		int index = 0;
-		forward();
 		while (index < directions.size()) {
 			if (atJunction) {
 				atJunction = false;
+				Delay.msDelay(100);
 				int instr = directions.get(index++);
 				if (instr == 0) {
 					Delay.msDelay(75);
@@ -280,31 +249,53 @@ public class Robot {
 		stop();
 	}
 
+	/*
+	 * private static int[] simplify(float[] ranges) { float min = Float.MAX_VALUE;
+	 * int[] simplifiedArr = new int[4]; for (float f : ranges) { if (f < min) { min
+	 * = f; } } for (int i = 0; i < 4; i++) { if (Math.abs(ranges[i] - min) <= 5) {
+	 * simplifiedArr[i] = 1; } else if (ranges[i] < 2 * min) { simplifiedArr[i] = 2;
+	 * } else { simplifiedArr[i] = 0; } } return simplifiedArr; }
+	 */
+
 	public static void main(String[] args) {
 		Button.waitForAnyPress();
 		Robot robot = new Robot();
+		Button.waitForAnyPress();
 
 		ArrayList<Integer> directions = new ArrayList<>();
 
-		int[] dir3 = { 0, 1, 0, -1, 1, 0, 0, 0, 0, -1, 0, -1, 4, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 5 };
+		int[] dir3 = { -1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 3 };
 		for (int i : dir3) {
 			directions.add(i);
 		}
 		robot.executeRoute(directions);
 
-		directions.clear();
-		int[] dir2 = { 2, 0, 0, -1, 0, 0, 3, 2, 0, 0, -1, 0, -1, 4, 2, 5 };
-		for (int i : dir2) {
-			directions.add(i);
-		}
-		robot.executeRoute(directions);
+		/*
+		 * directions.clear(); int[] dir2 = { 2, 0, 0, -1, 0, 0, 3, 2, 0, 0, -1, 0, -1,
+		 * 4, 2, 5 }; for (int i : dir2) { directions.add(i); }
+		 * robot.executeRoute(directions);
+		 * 
+		 * directions.clear(); int[] dir = { 0, -1, 0, 0, 0, 4, 2, 0, 0, 3, 0, 1, 0, 0,
+		 * 0, 1, 5 }; for (int i : dir) { directions.add(i); }
+		 * robot.executeRoute(directions);
+		 */
 
-		directions.clear();
-		int[] dir = { 0, -1, 0, 0, 0, 4, 2, 0, 0, 3, 0, 1, 0, 0, 0, 1, 5 };
-		for (int i : dir) {
-			directions.add(i);
-		}
-		robot.executeRoute(directions);
-
+		
+		  ArrayList<int[]> values = new ArrayList<>(); boolean foundLoc = false;
+		  float[] ranges = new float[4]; for (int i = 0; i < 4; i++) { float range =
+		  robot.IR.getRange(); ranges[i] = range; robot.rotateAtJunction(1); } String s
+		  = ""; for (float f : ranges) { s += f; }
+		 
+		/*
+		 * ArrayList<int[]> values = new ArrayList<>(); boolean foundLoc = false; int
+		 * count = 0; while (!foundLoc && count < 8) { if (atJunction) {
+		 * Delay.msDelay(100); robot.stop(); float[] ranges = new float[4]; for (int i =
+		 * 0; i < 4; i++) { float range = robot.IR.getRange(); ranges[i] = range;
+		 * robot.rotateAtJunction(1); robot.stop(); } values.add(simplify(ranges));
+		 * count++; } if (count < 8) { running = true; robot.run(); } } robot.stop();
+		 * LCD.clear(); for (int[] element : values) { for (int val : element) {
+		 * System.out.print(val + " "); } System.out.println(); }
+		 * Button.waitForAnyPress();
+		 */
 	}
 }

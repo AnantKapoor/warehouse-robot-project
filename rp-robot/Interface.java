@@ -1,13 +1,9 @@
 package warehouse;
 
 import lejos.nxt.Button;
-import lejos.nxt.ButtonListener;
 import lejos.nxt.LCD;
 
 public class Interface {
-	private int load = 0;
-	private boolean jobDone = false;
-
 	public static int[] getCoordinates() {
 		int x = 0;
 		int y = 0;
@@ -78,6 +74,7 @@ public class Interface {
 			if (buttonPress == Button.ID_ENTER) {
 				LCD.clear(3);
 				LCD.clear(5);
+				
 				LCD.clear(6);
 				LCD.clear(7);
 				break;
@@ -93,45 +90,9 @@ public class Interface {
 			break;
 		case 4:
 			LCD.drawString("Picking up item!", 0, 3);
-			// checking amount
-			break;
-		case 5:
-			LCD.drawString("Finished job!", 2, 3);
 			break;
 		}
 		confirmation();
 	}
 
-	public void addLoad() {
-		while (!jobDone) {
-
-			Button.waitForAnyPress();
-			if (Button.RIGHT.isPressed()) {
-				load++;
-			} else if (Button.LEFT.isPressed()) {
-				load--;
-			} else if ((load == 50 && Button.RIGHT.isPressed()) || (load == 0 && Button.LEFT.isPressed())) {
-				jobDone = true;
-			}
-		}
-		LCD.drawString("Robot is fully loaded", 3, 3);
-	}
-
-	public static void main(String args[]) {
-		Button.ENTER.addButtonListener(new ButtonListener() {
-
-			@Override
-			public void buttonReleased(Button b) {
-				System.out.println("world!");
-			}
-
-			@Override
-			public void buttonPressed(Button b) {
-				System.out.print("Hello ");
-			}
-		});
-		Button.ESCAPE.waitForPressAndRelease();
-		Button.discardEvents();
-		Button.ESCAPE.waitForPressAndRelease();
-	}
 }
